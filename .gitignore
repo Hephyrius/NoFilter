@@ -1,1 +1,5 @@
 node_modules/
+tronbox/node_modules/
+tronbox/src/js/metacoin-config.js
+tronbox/build
+tronbox/.env
