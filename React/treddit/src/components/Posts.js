@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PostItem from "./PostItem";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class Posts extends Component {
 
   render() {

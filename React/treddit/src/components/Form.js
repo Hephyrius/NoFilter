@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {createNewPost} from "../utils/tronweb";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Form extends React.Component {
   constructor(props) {
