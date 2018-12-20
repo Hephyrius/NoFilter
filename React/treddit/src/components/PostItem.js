@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class PostItem extends Component {
   render() {
       
     return (
       <div className="PostItem">
+      <div class="container-fluid">
+      <div class="row">
         <div className="content">
           <div className="title-area">
-            <span className="title">{this.props.post.title}</span>
+            <span className="title"><Link to={"post=" + this.props.post.postid}>{this.props.post.title}</Link></span>
           </div>
           <div className="meta-area">
             <span className="time">
@@ -15,8 +18,9 @@ class PostItem extends Component {
               <strong> {this.props.post.author}</strong>
             </span>
           </div>
-          <div className="link-area" />
         </div>
+      </div>
+      </div>
       </div>
     );
   }
