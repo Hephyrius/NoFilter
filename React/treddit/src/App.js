@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Posts from "./components/Posts";
+import PostPage from "./components/PostPage";
 import Form from "./components/Form";
 import SiteHeader from "./components/SiteHeader";
 import "./bootstrap.css";
@@ -29,6 +30,9 @@ class App extends Component {
         </div>
 
         <Route path="/" exact component={Home} />
+
+        <Route path="/post=:id" component={PostP}/>
+
       </div>
       </Router>
     );
@@ -36,6 +40,7 @@ class App extends Component {
 }
 
 const Home = () => <Posts />;
-const newpost = () => <Form />
+const newpost = () => <Form /> ;
+const PostP = ({ match }) => ( <PostPage postid={match.params.id} />);
 
 export default App;
