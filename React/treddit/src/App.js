@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Posts from "./components/Posts";
 import Form from "./components/Form";
-
+import SiteHeader from "./components/SiteHeader";
+import "./bootstrap.css";
 import {getBalance, getPosts} from "./utils/tronweb";
 
 class App extends Component {
@@ -18,24 +19,7 @@ class App extends Component {
 
   componentWillMount() {
     this.setState({
-      posts :JSON.parse(localStorage.getItem("Posts"))/*
-      posts : [
-        {
-          title: "Post 1 Title",
-          timestamp: "time",
-          tags: "tags"
-        },
-        {
-          title: "Post 2 Title",
-          timestamp: "time",
-          tags: "tags"
-        },
-        {
-          title: "Post 3 Title",
-          timestamp: "time",
-          tags: "tags"
-        }
-      ]*/ 
+      posts :JSON.parse(localStorage.getItem("Posts"))
     }
     )
   }
@@ -43,8 +27,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Treddit App</h1>
-        <Form />
+        <SiteHeader />
+
+        <div className="FormArea">
+          <Form />
+        </div>
+
         <Posts posts={this.state.posts}/>
       </div>
     );

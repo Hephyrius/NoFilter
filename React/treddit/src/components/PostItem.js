@@ -4,9 +4,20 @@ class PostItem extends Component {
   render() {
       
     return (
-      <li className="PostItem">
-        <strong>Title: {this.props.post.title} </strong> - Tags: {this.props.post.tags} - Created:{this.props.post.timestamp}
-      </li>
+      <div className="PostItem">
+        <div className="content">
+          <div className="title-area">
+            <span className="title">{this.props.post.title}</span>
+          </div>
+          <div className="meta-area">
+            <span className="time">
+              Submitted {this.props.post.timestamp} by
+              <strong> {this.props.post.author}</strong>
+            </span>
+          </div>
+          <div className="link-area" />
+        </div>
+      </div>
     );
   }
 }
