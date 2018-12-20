@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-import {dataTohex, hexToData, a2hex, hex2a} from "./parser"
+import {a2hex, hex2a, Time2a} from "./parser"
 
 const TronWeb = require('tronweb')
 
@@ -12,6 +12,9 @@ const tronWeb = new TronWeb(
     "http://127.0.0.1:9090",
     'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
 )
+
+//address of the contract
+const contractAddress = "TVX5BTagev1cjsnEm1EFXiBfNGZ9hz2Tih";
 
 export async function getBalance() {
 
@@ -38,21 +41,19 @@ export async function getBalance() {
 }
 
 export async function createNewPost(title, content, tags) {
+
+    //notify the user that the post has been submitted
     Swal({title:'Post Transaction Submitted',
             type: 'info'
         });
-
-
-    //address of the contract
-    const contractAddress = 'TEe2yzp8MUqEWaarkC2K9zygmDQv7666Sf';
 
     //load the contract 
     const contract = await tronWeb.contract().at(contractAddress);
 
     //convert the data to an appropriate format for the blockchain to handle
-    let byteTitle = hex2a(title);
-    let byteContent = hex2a(content);
-    let byteTags = hex2a(tags);
+    let byteTitle = a2hex(title);
+    let byteContent = a2hex(content);
+    let byteTags = a2hex(tags);
 
     //submit the data to the blockchain
     contract.CreatePost(byteTitle, byteContent, byteTags).send({
@@ -75,9 +76,6 @@ export async function createNewPost(title, content, tags) {
 //get data from contract events and convert it into a readable/useable state
 export async function getPosts() {
 
-    //address of the contract
-    const contractAddress = 'TEe2yzp8MUqEWaarkC2K9zygmDQv7666Sf';
-
     //load the contract 
     const events = await tronWeb.getEventResult(contractAddress, 0, "PostContent", 0,  200, 1);
 
@@ -87,7 +85,7 @@ export async function getPosts() {
         //format data so it can be used and stored better
         var post = {
             title: hex2a(events[i]['result']['title']),
-            timestamp: events[i]['result']['postTimestamp'],
+            timestamp: Time2a(events[i]['result']['postTimestamp']),
             tags: hex2a(events[i]['result']['tags']),
             postid: events[i]['result']['id'],
             author: events[i]['result']['author'],
