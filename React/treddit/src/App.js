@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import Posts from "./components/Posts";
 import Form from "./components/Form";
 import SiteHeader from "./components/SiteHeader";
@@ -13,30 +15,27 @@ class App extends Component {
       posts : [],
       postData : getPosts()
     }]
-    //getBalance();
     
-  }
-
-  componentWillMount() {
-    this.setState({
-      posts :JSON.parse(localStorage.getItem("Posts"))
-    }
-    )
   }
 
   render() {
     return (
+      <Router>   
       <div className="App">
         <SiteHeader />
 
         <div className="FormArea">
-          <Form />
+        <Route path="/new-post" component={newpost} />
         </div>
 
-        <Posts posts={this.state.posts}/>
+        <Route path="/" exact component={Home} />
       </div>
+      </Router>
     );
   }
 }
+
+const Home = () => <Posts />;
+const newpost = () => <Form />
 
 export default App;
