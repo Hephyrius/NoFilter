@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Posts from "./components/Posts";
+import {getBalance} from "./utils/tronweb";
 
 class App extends Component {
   
@@ -8,6 +9,7 @@ class App extends Component {
     this.state = [{
       posts : []
     }]
+    getBalance();
   }
 
   componentWillMount() {
