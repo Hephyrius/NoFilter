@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import Posts from "./components/Posts";
 import Form from "./components/Form";
 
-import {getBalance} from "./utils/tronweb";
+import {getBalance, getPosts} from "./utils/tronweb";
 
 class App extends Component {
   
   constructor () {
     super();
     this.state = [{
-      posts : []
+      posts : [],
+      postData : getPosts()
     }]
-    getBalance();
+    //getBalance();
+    
   }
 
   componentWillMount() {
     this.setState({
+      posts :JSON.parse(localStorage.getItem("Posts"))/*
       posts : [
         {
           title: "Post 1 Title",
@@ -32,9 +35,8 @@ class App extends Component {
           timestamp: "time",
           tags: "tags"
         }
-      ]
+      ]*/ 
     }
-
     )
   }
 

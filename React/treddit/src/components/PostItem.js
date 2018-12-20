@@ -5,7 +5,7 @@ class PostItem extends Component {
       
     return (
       <li className="PostItem">
-        <strong> {this.props.post.title} </strong> - {this.props.post.tags} - {this.props.post.timestamp}
+        <strong>Title: {this.props.post.title} </strong> - Tags: {this.props.post.tags} - Created:{this.props.post.timestamp}
       </li>
     );
   }
