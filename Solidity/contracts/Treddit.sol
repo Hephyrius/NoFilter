@@ -22,7 +22,7 @@ contract Treddit {
     event PostContent (
         address indexed author,
         uint indexed id,
-        bytes indexed tags,
+        bytes tags,
         uint postTimestamp, //used to generate private post unique key
         bytes title,
         bytes text
