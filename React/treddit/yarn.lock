@@ -7764,6 +7764,10 @@ svgo@^1.0.0, svgo@^1.0.5:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2@^7.32.4:
+  version "7.32.4"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.32.4.tgz#41afcba8595bceab637ce00f261b5d2dc85dc8d1"
+
 symbol-tree@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"

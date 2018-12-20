@@ -1,4 +1,9 @@
+import Swal from 'sweetalert2'
+
+import {dataTohex} from "./parser"
+
 const TronWeb = require('tronweb')
+
 
 //connecting tronweb to the local docker node
 const tronWeb = new TronWeb(
@@ -30,4 +35,39 @@ export async function getBalance() {
 
         console.log({balance});
     });
+}
+
+export async function createNewPost(title, content, tags) {
+    Swal({title:'Post Transaction Submitted',
+            type: 'info'
+        });
+
+
+    //address of the contract
+    const contractAddress = 'TEe2yzp8MUqEWaarkC2K9zygmDQv7666Sf';
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the data to an appropriate format for the blockchain to handle
+    let byteTitle = dataTohex(title);
+    let byteContent = dataTohex(content);
+    let byteTags = dataTohex(tags);
+
+    //submit the data to the blockchain
+    contract.CreatePost(byteTitle, byteContent, byteTags).send({
+        shouldPollResponse:true,
+        callValue:0
+
+    }).then(res => Swal({
+        title:'Post Created Successfully',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+             title:'Post Creation Failed',
+             type: 'error'
+        }
+    ));
+
 }

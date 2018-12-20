@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Posts from "./components/Posts";
+import Form from "./components/Form";
+
 import {getBalance} from "./utils/tronweb";
 
 class App extends Component {
@@ -39,7 +41,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        Treddit App
+        <h1>Treddit App</h1>
+        <Form />
         <Posts posts={this.state.posts}/>
       </div>
     );
