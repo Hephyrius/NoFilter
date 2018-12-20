@@ -90,7 +90,8 @@ export async function getPosts() {
             timestamp: events[i]['result']['postTimestamp'],
             tags: hex2a(events[i]['result']['tags']),
             postid: events[i]['result']['id'],
-            author: events[i]['result']['author']
+            author: events[i]['result']['author'],
+            content: hex2a(events[i]['result']['text'])
           }
 
         posts = posts.concat(post);
