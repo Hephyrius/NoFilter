@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import CommentBox from "./CommentBox";
+
 class PostPage extends Component {
 
   render() {
@@ -35,6 +37,9 @@ class PostPage extends Component {
               <p> - by {post['author']}</p>
           </div>
         </div>
+
+        <CommentBox />
+
       </div>
     );
   }

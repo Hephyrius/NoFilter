@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TVX5BTagev1cjsnEm1EFXiBfNGZ9hz2Tih";
+const contractAddress = "TLTSaqWWCQb1qZUJs46VwKNrmABugRDcig";
 
 export async function getBalance() {
 
