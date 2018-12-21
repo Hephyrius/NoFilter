@@ -25,16 +25,15 @@ class PostPage extends Component {
               <h1 class="mt-4">{post['title']}</h1>
 
               <p></p>
-
-              <p class="lead">{post['content']} </p>
-
-              <p></p>
-
-              <p>Posted on {post['timestamp']}  </p>
+              <div class="container">
+              <p class="lead" alignment="left">{post['content']} </p>
+              </div>
 
               <p></p>
+              <p alignment="left">Posted on {post['timestamp']}  </p>
+              <p></p>
 
-              <p> - by {post['author']}</p>
+              <p alignment="right"> - by {post['author']}</p>
           </div>
         </div>
 
