@@ -23,16 +23,18 @@ class App extends Component {
     return (
       <Router>   
       <div className="App">
-        <SiteHeader />
+        <div class="container">
+          <SiteHeader />
 
-        <div className="FormArea">
-        <Route path="/new-post" component={newpost} />
+          <div className="FormArea">
+          <Route path="/new-post" component={newpost} />
+          </div>
+
+          <Route path="/" exact component={Home} />
+
+          <Route path="/post=:id" component={PostP}/>
+
         </div>
-
-        <Route path="/" exact component={Home} />
-
-        <Route path="/post=:id" component={PostP}/>
-
       </div>
       </Router>
     );
