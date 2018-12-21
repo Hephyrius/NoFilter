@@ -36,28 +36,34 @@ class Form extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-      <h3>Create New Post</h3>
-        <label> Title: </label>
-          <div>
-            <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
-          </div>
-        <p> </p>
+      <div className="Form">
+        <div class="container">
+            <div class="row">
+              <form onSubmit={this.handleSubmit}>
+              <h3>Create New Post</h3>
+                <label> Title: </label>
+                  <div>
+                    <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
+                  </div>
+                <p> </p>
 
-        <label> Tag: </label>
-          <div>
-            <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
-          </div>
-        <p> </p>
+                <label> Tag: </label>
+                  <div>
+                    <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
+                  </div>
+                <p> </p>
 
-        <label> Content: </label>
-          <div>
-            <textarea value={this.state.content} cols="40" rows="8" onChange={this.handleContentChange} />
+                <label> Content: </label>
+                  <div>
+                    <textarea value={this.state.content} cols="40" rows="8" onChange={this.handleContentChange} />
+                  </div>
+                <p> </p>
+                
+                <input type="submit" value="Submit" />
+              </form>
+            </div>
           </div>
-        <p> </p>
-        
-        <input type="submit" value="Submit" />
-      </form>
+        </div>
     );
   }
 }
