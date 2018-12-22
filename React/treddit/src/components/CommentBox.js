@@ -4,20 +4,20 @@ class CommentBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: ''
+      commentText: ''
 
     };
 
-    this.handleContentChange = this.handleCommentChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleCommentChange(event) {
-    this.setState({comment: event.target.value});
+  handleChange(event) {
+    this.setState({commentText: event.target.value});
   }
 
   handleSubmit(event) {
-    //createNewPost(this.state.title, this.state.comment, this.state.tag);
+    //createNewPost(this.state.title, this.state.content, this.state.tag);
     event.preventDefault();
   }
 
@@ -31,7 +31,7 @@ class CommentBox extends React.Component {
 
                 <label> Comment: </label>
                 <div>
-                    <textarea value={this.state.comment} cols="40" rows="8" onChange={this.handleCommentChange} />
+                    <textarea value={this.state.comment} cols="40" rows="8" onChange={this.handleChange} />
                 </div>
                 <p> </p>
                 
