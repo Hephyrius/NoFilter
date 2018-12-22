@@ -6,7 +6,7 @@ import PostPage from "./components/PostPage";
 import Form from "./components/Form";
 import SiteHeader from "./components/SiteHeader";
 import "./bootstrap.css";
-import {getBalance, getPosts} from "./utils/tronweb";
+import {getBalance, getPosts, getComments} from "./utils/tronweb";
 
 class App extends Component {
   
@@ -14,7 +14,8 @@ class App extends Component {
     super();
     this.state = [{
       posts : [],
-      postData : getPosts()
+      postData : getPosts(),
+      commentData: getComments()
     }]
     
   }

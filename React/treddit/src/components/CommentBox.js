@@ -30,7 +30,7 @@ class CommentBox extends React.Component {
             <form onSubmit={this.handleSubmit}>
             <h3>Leave a Comment</h3>
 
-                <label> Comment: </label>
+                <label> </label>
                 <div>
                     <textarea value={this.state.comment} cols="40" rows="8" onChange={this.handleChange} />
                 </div>

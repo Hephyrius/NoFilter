@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TNmRggH8ruBdSQKqugb3exEwDaRAQg438n";
+const contractAddress = "TH4LFu5FkiBWTPWBdeSAFhxS4G2qQ3PnHB";
 
 export async function getBalance() {
 
@@ -131,4 +131,30 @@ export async function getPosts() {
     localStorage.setItem("Posts", JSON.stringify(posts));
 
     return posts;
+}
+
+//get data from contract events and convert it into a readable/useable state
+export async function getComments() {
+
+    //load the contract 
+    const events = await tronWeb.getEventResult(contractAddress, 0, "CommentCreated", 0,  200, 1);
+    console.log(events);
+    var comments = []
+    for(var i=0; i<events.length; i++){
+
+        //format data so it can be used and stored better
+        var comment = {
+            parentComment: hex2a(events[i]['result']['parentComment']),
+            postid: events[i]['result']['postId'],
+            author: events[i]['result']['commenter'],
+            content: hex2a(events[i]['result']['comment']),
+            timestamp: Time2a(events[i]['result']['postTimestamp'])
+          }
+
+          comments = comments.concat(comment);
+    }
+
+    localStorage.setItem("Comments", JSON.stringify(comments));
+
+    return comments;
 }
