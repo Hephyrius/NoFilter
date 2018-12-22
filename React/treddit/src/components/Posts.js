@@ -4,17 +4,22 @@ class Posts extends Component {
 
   render() {
     let postItems;
-    if(this.props.posts) {
-        postItems = this.props.posts.map(post => {
+    let posts = JSON.parse(localStorage.getItem("Posts"))
+    if(posts) {
+        postItems = posts.map(post => {
             return (
                 <PostItem key={post.title} post={post}/>
             )
         } );
     }
     return (
-      <div className="Posts">
-       {postItems}
-      </div>
+      <div className="Postss">
+        <div class="container">
+            <div class="row">
+              {postItems}
+            </div>
+          </div>
+        </div>
     );
   }
 }

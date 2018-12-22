@@ -18,6 +18,6 @@ export function hex2a(hexx) {
 }
 
 export function Time2a(timestamp){
-    var s = new Date(timestamp*1000).toLocaleDateString("en-FB");
+    var s = new Date(timestamp*1000).toLocaleDateString("en-GB");
     return s;
 }

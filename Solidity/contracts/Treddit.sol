@@ -60,14 +60,15 @@ contract Treddit {
         address indexed commenter,
         uint indexed postId,
         bytes comment,
-        uint parentComment
+        uint parentComment,
+		uint commentTimestamp
     );
     
-    function PostComment(uint postId, bytes text, uint parentComment) public {
+    function PostComment(bytes text, uint postId, uint parentComment) public {
         require(postId >= 0, "comment is not for a valid post");
-        require(postId < postNumber, "comment is for a non existent post");
+        require(postId <= postNumber, "comment is for a non existent post");
         require(text.length > 0, "comment comment is empty");
-        emit CommentCreated(msg.sender, postId, text, parentComment);
+        emit CommentCreated(msg.sender, postId, text, parentComment, now);
         
         //update comment related variables
         uint commentId = commentCounter[postId];
@@ -78,7 +79,7 @@ contract Treddit {
         commentVoters[msg.sender][postId][commentId] = 1;
         
         //increment counter when done
-        commentCounter[postId] += 1;
+        commentCounter[postId] = commentId + 1;
     }
     
     //upvote a post 

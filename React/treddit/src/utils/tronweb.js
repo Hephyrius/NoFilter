@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TVX5BTagev1cjsnEm1EFXiBfNGZ9hz2Tih";
+const contractAddress = "TH4LFu5FkiBWTPWBdeSAFhxS4G2qQ3PnHB";
 
 export async function getBalance() {
 
@@ -73,6 +73,39 @@ export async function createNewPost(title, content, tags) {
 
 }
 
+export async function createNewComment(commentText, postid,  parentComment) {
+
+    //notify the user that the post has been submitted
+    Swal({title:'Comment Transaction Submitted',
+            type: 'info'
+        });
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the data to an appropriate format for the blockchain to handle
+    //let byteTitle = a2hex(title);
+    let bytecommentText = a2hex(commentText);
+    //let byteTags = a2hex(tags);
+
+    //submit the data to the blockchain
+    contract.PostComment(bytecommentText, "0x00", "0x00").send({
+        shouldPollResponse:true,
+        callValue:0
+
+    }).then(res => Swal({
+        title:'Comment Posted Successfully',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+             title:'Comment Post Failed',
+             type: 'error'
+        }
+    ));
+
+}
+
 //get data from contract events and convert it into a readable/useable state
 export async function getPosts() {
 
@@ -98,4 +131,30 @@ export async function getPosts() {
     localStorage.setItem("Posts", JSON.stringify(posts));
 
     return posts;
+}
+
+//get data from contract events and convert it into a readable/useable state
+export async function getComments() {
+
+    //load the contract 
+    const events = await tronWeb.getEventResult(contractAddress, 0, "CommentCreated", 0,  200, 1);
+    console.log(events);
+    var comments = []
+    for(var i=0; i<events.length; i++){
+
+        //format data so it can be used and stored better
+        var comment = {
+            parentComment: hex2a(events[i]['result']['parentComment']),
+            postid: events[i]['result']['postId'],
+            author: events[i]['result']['commenter'],
+            content: hex2a(events[i]['result']['comment']),
+            timestamp: Time2a(events[i]['result']['postTimestamp'])
+          }
+
+          comments = comments.concat(comment);
+    }
+
+    localStorage.setItem("Comments", JSON.stringify(comments));
+
+    return comments;
 }
