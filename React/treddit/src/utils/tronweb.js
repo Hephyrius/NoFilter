@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TLTSaqWWCQb1qZUJs46VwKNrmABugRDcig";
+const contractAddress = "TNmRggH8ruBdSQKqugb3exEwDaRAQg438n";
 
 export async function getBalance() {
 
@@ -67,6 +67,39 @@ export async function createNewPost(title, content, tags) {
     })).catch(err => Swal(
         {
              title:'Post Creation Failed',
+             type: 'error'
+        }
+    ));
+
+}
+
+export async function createNewComment(commentText, postid,  parentComment) {
+
+    //notify the user that the post has been submitted
+    Swal({title:'Comment Transaction Submitted',
+            type: 'info'
+        });
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the data to an appropriate format for the blockchain to handle
+    //let byteTitle = a2hex(title);
+    let bytecommentText = a2hex(commentText);
+    //let byteTags = a2hex(tags);
+
+    //submit the data to the blockchain
+    contract.PostComment(bytecommentText, "0x00", "0x00").send({
+        shouldPollResponse:true,
+        callValue:0
+
+    }).then(res => Swal({
+        title:'Comment Posted Successfully',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+             title:'Comment Post Failed',
              type: 'error'
         }
     ));

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {createNewComment} from "../utils/tronweb";
 
 class CommentBox extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class CommentBox extends React.Component {
   }
 
   handleSubmit(event) {
-    //createNewPost(this.state.title, this.state.content, this.state.tag);
+    createNewComment(this.state.commentText, 0,  0);
     event.preventDefault();
   }
 
