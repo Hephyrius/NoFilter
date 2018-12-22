@@ -148,7 +148,7 @@ export async function getComments() {
             postid: events[i]['result']['postId'],
             author: events[i]['result']['commenter'],
             content: hex2a(events[i]['result']['comment']),
-            timestamp: Time2a(events[i]['result']['postTimestamp'])
+            timestamp: Time2a(events[i]['result']['commentTimestamp'])
           }
 
           comments = comments.concat(comment);
