@@ -1,7 +1,7 @@
 var Migrations = artifacts.require("./Migrations.sol");
-var Treddit = artifacts.require ("./Treddit.sol");
+var nofilter = artifacts.require ("./NoFilter.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(Migrations);
-  deployer.deploy(Treddit);
+  deployer.deploy(nofilter);
 };

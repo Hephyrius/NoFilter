@@ -1,6 +1,6 @@
 pragma solidity >=0.4.23;
 
-contract Treddit {
+contract NoFilter {
     
     //post related variables
     uint postNumber; // keeps track of posts so that every one is unique
@@ -153,4 +153,10 @@ contract Treddit {
         return commentVoters[commenter][postId][commendId];
     } 
 
+    // View Functions Used by Front End
+
+    //get the total number of posts
+    function getPostCounter() public view returns (uint) {
+        return postNumber;
+    }
 }
