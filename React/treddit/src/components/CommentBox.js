@@ -18,7 +18,7 @@ class CommentBox extends React.Component {
   }
 
   handleSubmit(event) {
-    createNewComment(this.state.commentText, 0,  0);
+    createNewComment(this.state.commentText, this.props.postid,  0);
     event.preventDefault();
   }
 

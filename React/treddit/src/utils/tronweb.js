@@ -14,31 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TH4LFu5FkiBWTPWBdeSAFhxS4G2qQ3PnHB";
-
-export async function getBalance() {
-
-    const address = 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY';
-
-    // The majority of the function calls are asynchronus,
-    // meaning that they cannot return the result instantly.
-    // These methods therefore return a promise, which you can await.
-    const balance = await tronWeb.trx.getBalance(address);
-    console.log({balance});
-
-    // You can also bind a `then` and `catch` method.
-    tronWeb.trx.getBalance(address).then(balance => {
-        console.log({balance});
-    }).catch(err => console.error(err));
-
-    // If you'd like to use a similar API to Web3, provide a callback function.
-    tronWeb.trx.getBalance(address, (err, balance) => {
-        if (err)
-            return console.error(err);
-
-        console.log({balance});
-    });
-}
+const contractAddress = "TQvNUvqDQ44kbydnkMxrE5DCb7wh49UTRV";
 
 export async function createNewPost(title, content, tags) {
 
@@ -73,39 +49,6 @@ export async function createNewPost(title, content, tags) {
 
 }
 
-export async function createNewComment(commentText, postid,  parentComment) {
-
-    //notify the user that the post has been submitted
-    Swal({title:'Comment Transaction Submitted',
-            type: 'info'
-        });
-
-    //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
-
-    //convert the data to an appropriate format for the blockchain to handle
-    //let byteTitle = a2hex(title);
-    let bytecommentText = a2hex(commentText);
-    //let byteTags = a2hex(tags);
-
-    //submit the data to the blockchain
-    contract.PostComment(bytecommentText, "0x00", "0x00").send({
-        shouldPollResponse:true,
-        callValue:0
-
-    }).then(res => Swal({
-        title:'Comment Posted Successfully',
-        type: 'success'
-
-    })).catch(err => Swal(
-        {
-             title:'Comment Post Failed',
-             type: 'error'
-        }
-    ));
-
-}
-
 //get data from contract events and convert it into a readable/useable state
 export async function getPosts() {
 
@@ -133,12 +76,45 @@ export async function getPosts() {
     return posts;
 }
 
+export async function createNewComment(commentText, postid,  parentComment) {
+
+    //notify the user that the comment has been submitted
+    Swal({title:'Comment Transaction Submitted',
+            type: 'info'
+        });
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the data to an appropriate format for the blockchain to handle
+    //let byteTitle = a2hex(title);
+    let bytecommentText = a2hex(commentText);
+    let id = "0x" + Number(postid).toString(16);
+
+    //submit the data to the blockchain
+    contract.PostComment(bytecommentText, id, "0x00").send({
+        shouldPollResponse:true,
+        callValue:0
+
+    }).then(res => Swal({
+        title:'Comment Posted Successfully',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+             title:'Comment Post Failed',
+             type: 'error'
+        }
+    ));
+
+}
+
 //get data from contract events and convert it into a readable/useable state
 export async function getComments() {
 
     //load the contract 
     const events = await tronWeb.getEventResult(contractAddress, 0, "CommentCreated", 0,  200, 1);
-    console.log(events);
+
     var comments = []
     for(var i=0; i<events.length; i++){
 

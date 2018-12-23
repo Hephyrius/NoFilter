@@ -8,7 +8,6 @@ class PostPage extends Component {
     let postid;
     let post;
     if(this.props.postid) {
-      //console.log(this.props.postid)
       let posts = JSON.parse(localStorage.getItem("Posts"));
       for(var i=0; i<posts.length; i++){
         if(posts[i]['postid'] === this.props.postid){
@@ -40,7 +39,7 @@ class PostPage extends Component {
         
         
         <CommentsList  postid={this.props.postid}/>
-        <CommentBox />
+        <CommentBox postid={this.props.postid}/>
 
       </div>
     );

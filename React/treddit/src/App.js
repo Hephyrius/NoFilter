@@ -6,7 +6,7 @@ import PostPage from "./components/PostPage";
 import Form from "./components/Form";
 import SiteHeader from "./components/SiteHeader";
 import "./bootstrap.css";
-import {getBalance, getPosts, getComments} from "./utils/tronweb";
+import {getPosts, getComments} from "./utils/tronweb";
 
 class App extends Component {
   

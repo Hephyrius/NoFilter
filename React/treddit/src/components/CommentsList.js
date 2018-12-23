@@ -4,7 +4,7 @@ class CommentsList extends Component {
 
   render() {
     let commentItems;
-    console.log(this.props.postid)
+    
     let comments = JSON.parse(localStorage.getItem("Comments"))
     let filteredComments = []
     for(var i=0; i<comments.length; i++){
