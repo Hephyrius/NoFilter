@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TBzArKNkXjviruQi7prnjQAZ4qjQ18jr22";
+const contractAddress = "TFwSiqbpkwyV6irAJ3QKpGwJcMoo2w6pZh";
 
 export async function createNewPost(title, content, tags) {
 
@@ -134,4 +134,30 @@ export async function getComments() {
     localStorage.setItem("Comments", JSON.stringify(comments));
 
     return comments;
+}
+
+//get the vote counters from the blockchain
+export async function getVoteCounters() {
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    let posts = JSON.parse(localStorage.getItem("Posts"));
+    let votes = [];
+
+    for(var i=0; i<posts.length; i++){
+        let pid = posts[i]['postid'];
+        let id = "0x" + Number(pid).toString(16);
+        let rawcall = await contract.getVotes(id).call();
+        let value = tronWeb.toBigNumber(rawcall['_hex']).toNumber();
+        console.log(value);
+        console.log(rawcall);
+
+        let postVote = {
+            postid : pid,
+            votes : value
+        }
+        votes = votes.concat(postVote);
+    } 
+
+    localStorage.setItem("PostVotes", JSON.stringify(votes));
+
 }

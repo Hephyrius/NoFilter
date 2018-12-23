@@ -7,7 +7,7 @@ import Form from "./components/Form";
 import About from "./components/About";
 import SiteHeader from "./components/SiteHeader";
 import "./bootstrap.css";
-import {getPosts, getComments} from "./utils/tronweb";
+import {getPosts, getComments, getVoteCounters} from "./utils/tronweb";
 
 class App extends Component {
   
@@ -18,7 +18,7 @@ class App extends Component {
       postData : getPosts(),
       commentData: getComments()
     }]
-    
+    getVoteCounters()
   }
 
   render() {
