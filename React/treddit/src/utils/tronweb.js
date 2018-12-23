@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TQvNUvqDQ44kbydnkMxrE5DCb7wh49UTRV";
+const contractAddress = "TBzArKNkXjviruQi7prnjQAZ4qjQ18jr22";
 
 export async function createNewPost(title, content, tags) {
 
@@ -124,7 +124,8 @@ export async function getComments() {
             postid: events[i]['result']['postId'],
             author: events[i]['result']['commenter'],
             content: hex2a(events[i]['result']['comment']),
-            timestamp: Time2a(events[i]['result']['commentTimestamp'])
+            timestamp: Time2a(events[i]['result']['commentTimestamp']),
+            commentid: events[i]['result']['commentId']
           }
 
           comments = comments.concat(comment);

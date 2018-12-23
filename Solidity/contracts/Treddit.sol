@@ -61,17 +61,22 @@ contract Treddit {
         uint indexed postId,
         bytes comment,
         uint parentComment,
-		uint commentTimestamp
+		uint commentTimestamp,
+		uint commentId
     );
     
     function PostComment(bytes text, uint postId, uint parentComment) public {
         require(postId >= 0, "comment is not for a valid post");
         require(postId <= postNumber, "comment is for a non existent post");
         require(text.length > 0, "comment comment is empty");
-        emit CommentCreated(msg.sender, postId, text, parentComment, now);
-        
-        //update comment related variables
+		
+		//update comment related variables
         uint commentId = commentCounter[postId];
+		
+		//emit to the blockchain
+        emit CommentCreated(msg.sender, postId, text, parentComment, now, commentId);
+        
+
         commentOwner[postId][commentId] = msg.sender;
         
         //deal with upvote data
