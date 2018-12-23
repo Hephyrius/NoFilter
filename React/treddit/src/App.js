@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Posts from "./components/Posts";
 import PostPage from "./components/PostPage";
 import Form from "./components/Form";
+import About from "./components/About";
 import SiteHeader from "./components/SiteHeader";
 import "./bootstrap.css";
 import {getPosts, getComments} from "./utils/tronweb";
@@ -33,6 +34,8 @@ class App extends Component {
 
           <Route path="/" exact component={Home} />
 
+          <Route path="/about" component={AboutP} />
+
           <Route path="/post=:id" component={PostP}/>
 
         </div>
@@ -45,5 +48,6 @@ class App extends Component {
 const Home = () => <Posts />;
 const newpost = () => <Form /> ;
 const PostP = ({ match }) => ( <PostPage postid={match.params.id} />);
+const AboutP = ({ match }) => ( <About />);
 
 export default App;

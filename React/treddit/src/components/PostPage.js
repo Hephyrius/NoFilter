@@ -26,7 +26,7 @@ class PostPage extends Component {
 
               <p></p>
               <div class="container">
-              <p class="lead" alignment="left">{post['content']} </p>
+              <p class="lead" align="justify">{post['content']} </p>
               </div>
 
               <p></p>
