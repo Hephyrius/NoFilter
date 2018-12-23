@@ -58,13 +58,17 @@ export async function getPosts() {
     var posts = []
     for(var i=0; i<events.length; i++){
 
+        let address = events[i]['result']['author'];
+        address = address.substring(2, address.length);
+        address = tronWeb.address.fromHex(address)
+
         //format data so it can be used and stored better
         var post = {
             title: hex2a(events[i]['result']['title']),
             timestamp: Time2a(events[i]['result']['postTimestamp']),
             tags: hex2a(events[i]['result']['tags']),
             postid: events[i]['result']['id'],
-            author: events[i]['result']['author'],
+            author: address,
             content: hex2a(events[i]['result']['text'])
           }
 
@@ -118,11 +122,14 @@ export async function getComments() {
     var comments = []
     for(var i=0; i<events.length; i++){
 
+        let address = events[i]['result']['commenter'];
+        address = address.substring(2, address.length);
+        address = tronWeb.address.fromHex(address)
         //format data so it can be used and stored better
         var comment = {
             parentComment: hex2a(events[i]['result']['parentComment']),
             postid: events[i]['result']['postId'],
-            author: events[i]['result']['commenter'],
+            author: address,
             content: hex2a(events[i]['result']['comment']),
             timestamp: Time2a(events[i]['result']['commentTimestamp']),
             commentid: events[i]['result']['commentId']
