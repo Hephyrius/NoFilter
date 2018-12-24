@@ -23,12 +23,14 @@ class PostVote extends Component {
     //grab the vote count for the given post
     let upVoteCount = 0;
     let downVoteCount = 0;
+    let totalVote = 0;
     let votes = JSON.parse(localStorage.getItem("PostVotes"));
     if(votes) {
       for(var i=0; i<votes.length; i++){
         if(votes[i]['postid'] == this.props.postid){
           upVoteCount = votes[i]['upvotes'] 
           downVoteCount = votes[i]['downvotes'] 
+          totalVote = votes[i]['total'] 
         }
       }
     }

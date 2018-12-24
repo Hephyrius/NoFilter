@@ -164,7 +164,8 @@ export async function getVoteCounters() {
         let postVote = {
             postid : pid,
             upvotes : up,
-            downvotes: down
+            downvotes: down,
+            total: (up-down)
         }
         votes = votes.concat(postVote);
     } 
