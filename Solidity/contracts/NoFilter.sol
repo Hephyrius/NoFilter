@@ -5,7 +5,8 @@ contract NoFilter {
     //post related variables
     uint postNumber; // keeps track of posts so that every one is unique
     mapping (uint => address) postOwners; //Keeps track of who owns a specific post
-    mapping (uint => uint) votes; // keeps track of a posts vote counter
+    mapping (uint => uint) upvotes; // keeps track of a posts vote counter
+    mapping (uint => uint) downvotes; // keeps track of a posts vote counter
     mapping (address => mapping(uint => uint)) voters; //keeps track of a users voting history, helps to prevent vote spamming from a single account
     
     //comment related variables
@@ -41,7 +42,7 @@ contract NoFilter {
         postOwners[postId] = msg.sender;
         
         //init votes so that the owner has upvoted by default.
-        votes[postId] = 1;
+        upvotes[postId] = 1;
         voters[msg.sender][postId] = 1;
         
         //posts are stored in logs, it allows to reduce post invocation cost
@@ -92,24 +93,37 @@ contract NoFilter {
         require(postId >= 0, "votes is not for a valid post");
         require(postId < postNumber, "votes is for a non existent post");
         
-        require(voters[msg.sender][postId] != 1, "Upvote already done");
+        uint knownType = voters[msg.sender][postId];
+        require(knownType != 1, "Upvote already done");
+        if (knownType == 2) {
+            downvotes[postId] -= 1;
+        }
         voters[msg.sender][postId] = 1;
-        votes[postId] += 1;
+        upvotes[postId] += 1;
     }
     
     //downvote a post 
     function DownvotePost(uint postId) public {
         require(postId >= 0, "votes is not for a valid post");
         require(postId < postNumber, "votes is for a non existent post");
-        
-        require(voters[msg.sender][postId] != 2, "downvote already done");
+
+        uint knownType = voters[msg.sender][postId];
+        require(knownType != 2, "downvote already done");
+        if (knownType == 1) {
+            upvotes[postId] -= 1;
+        }
         voters[msg.sender][postId] = 2;
-        votes[postId] -= 1;
+        downvotes[postId] += 1;
     }
     
     //get the vote data
-    function getVotes(uint postId) public view returns (uint) {
-        return votes[postId];
+    function getUpVotes(uint postId) public view returns (uint) {
+        return upvotes[postId];
+    }
+
+    //get the vote data
+    function getDownVotes(uint postId) public view returns (uint) {
+        return downvotes[postId];
     }
     
     //get the voter data

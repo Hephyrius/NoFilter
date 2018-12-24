@@ -182,7 +182,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 630,
+                        "referencedDeclaration": 676,
                         "src": "153:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -286,7 +286,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 630,
+                        "referencedDeclaration": 676,
                         "src": "223:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -832,7 +832,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 630,
+                        "referencedDeclaration": 676,
                         "src": "153:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -936,7 +936,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 630,
+                        "referencedDeclaration": 676,
                         "src": "223:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1378,9 +1378,9 @@
     "*": {
       "events": {},
       "links": {},
-      "address": "41de66964418759e4a7b4ad5ee6a18403899fa7da8"
+      "address": "418a9f877e7a900f691d617c8ce219a464e4e236b3"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-23T16:25:16.359Z"
+  "updatedAt": "2018-12-24T14:30:20.323Z"
 }
