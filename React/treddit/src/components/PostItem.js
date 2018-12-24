@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PostVote from "./PostVote";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class PostItem extends Component {
@@ -18,24 +19,32 @@ class PostItem extends Component {
 
     return (
       <div className="PostItem">
+      <p></p>
+
         <div class="container-fluid">
           <div class="row">
-            
-
-              <div className="title-area">
-                  <span className="title"><Link to={"post=" + this.props.post.postid}> {this.props.post.title}</Link></span>
-                  <strong><span>⟰ {upVoteCount} | {downVoteCount} ⟱</span></strong>
+              <div class="col-md-2">
+                <PostVote postid={this.props.post.postid} />
               </div>
+              
+              <div class="col-md-8">
+              <p></p>
+                <div className="title-area">
+                    <span className="title"><Link to={"post=" + this.props.post.postid}> {this.props.post.title}</Link></span>
+                    
+                </div>
 
-              <div className="meta-area">
+                <div className="meta-area">
 
-                <span className="time">
-                  Submitted {this.props.post.timestamp} by
-                  <strong> {this.props.post.author}</strong>
-                </span>
+                  <span className="time">
+                    Submitted {this.props.post.timestamp} by
+                    <strong> {this.props.post.author}</strong>
+                  </span>
+                </div>
               </div>
           </div>
         </div>
+        
       </div>
     );
   }

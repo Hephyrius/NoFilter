@@ -172,3 +172,59 @@ export async function getVoteCounters() {
     localStorage.setItem("PostVotes", JSON.stringify(votes));
 
 }
+
+export async function VoteOnPost(postid, votetype) {
+
+
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the postid into a useable form
+    let id = "0x" + Number(postid).toString(16);
+
+    if (votetype == 0){
+        //notify the user that the vote has been submitted
+        Swal({title:'Post Up Voted',
+        type: 'info'
+        });
+        //submit the data to the blockchain
+        contract.UpvotePost(postid).send({
+            shouldPollResponse:true,
+            callValue:0
+
+        }).then(res => Swal({
+            title:'Up Voted Successfully',
+            type: 'success'
+
+        })).catch(err => Swal(
+            {
+                title:'Up Vote Failed',
+                type: 'error'
+            }
+        ));
+    }else if (votetype == 1){
+
+        //notify the user that the vote has been submitted
+        Swal({title:'Post Down Voted',
+        type: 'info'
+        });
+
+        //submit the data to the blockchain
+        contract.DownvotePost(postid).send({
+            shouldPollResponse:true,
+            callValue:0
+
+        }).then(res => Swal({
+            title:'Down Voted Successfully',
+            type: 'success'
+
+        })).catch(err => Swal(
+            {
+                title:'Down Vote Failed',
+                type: 'error'
+            }
+        ));
+    }
+
+}

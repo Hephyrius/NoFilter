@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CommentBox from "./CommentBox";
 import CommentsList from "./CommentsList";
+import PostVote from "./PostVote";
 
 class PostPage extends Component {
 
@@ -15,8 +16,8 @@ class PostPage extends Component {
           break;
         }
       } 
-
     }
+
     return (
       <div className="PostPage">
         <div class="container">
@@ -36,11 +37,15 @@ class PostPage extends Component {
               <p alignment="right"> - by {post['author']}</p>
           </div>
         </div>
-        
-        
-        <CommentsList  postid={this.props.postid}/>
-        <CommentBox postid={this.props.postid}/>
 
+        <h3>Vote</h3>
+        <PostVote postid={this.props.postid} />
+        <p></p>
+
+        <CommentsList postid={this.props.postid}/>
+        <p></p>
+
+        <CommentBox postid={this.props.postid}/>
       </div>
     );
   }
