@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TEA9fka4ZEvTHfckHabLfEJMsFH8vFWJeA";
+const contractAddress = "TA3sz1CwMXXbaj12JXrpBJ9ceAEe9Un4Z9";
 
 export async function createNewPost(title, content, tags) {
 
@@ -149,6 +149,10 @@ export async function getVoteCounters() {
 
     let posts = JSON.parse(localStorage.getItem("Posts"));
     let votes = [];
+
+    if (!posts){
+        posts = [];
+    }
 
     for(var i=0; i<posts.length; i++){
         let pid = posts[i]['postid'];
