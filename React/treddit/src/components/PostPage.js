@@ -6,7 +6,7 @@ import PostVote from "./PostVote";
 class PostPage extends Component {
 
   render() {
-    let postid;
+    var postid = this.props.postid;
     let post;
     if(this.props.postid) {
       let posts = JSON.parse(localStorage.getItem("Posts"));
@@ -16,6 +16,15 @@ class PostPage extends Component {
           break;
         }
       } 
+    }
+    if(!post) {
+      post = {
+        title: "404 Not Found",
+        author: "0x0",
+        timestamp: "ERROR",
+        content: "Post does not exist"
+      }
+      postid = -1;
     }
 
     return (
@@ -39,13 +48,13 @@ class PostPage extends Component {
         </div>
 
         <h3>Vote</h3>
-        <PostVote postid={this.props.postid} />
+        <PostVote postid={postid} />
         <p></p>
 
-        <CommentsList postid={this.props.postid}/>
+        <CommentsList postid={postid}/>
         <p></p>
 
-        <CommentBox postid={this.props.postid}/>
+        <CommentBox postid={postid}/>
       </div>
     );
   }
