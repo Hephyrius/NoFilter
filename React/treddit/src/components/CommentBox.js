@@ -36,7 +36,7 @@ class CommentBox extends React.Component {
                 </div>
                 <p> </p>
                 
-                <input type="submit" value="Submit" />
+                <input type="submit" class="btn btn-outline-dark" value="Submit" />
             </form>
             </div>
         </div>
