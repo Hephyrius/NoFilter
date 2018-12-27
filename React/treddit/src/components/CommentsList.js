@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import CommentItem from "./CommentItem";
+import DummyItem from "./DummyItem";
+
 class CommentsList extends Component {
 
   render() {
@@ -13,13 +15,16 @@ class CommentsList extends Component {
         }
       } 
 
-    if(comments) {
+    if(filteredComments.length > 0) {
         commentItems = filteredComments.map(comment => {
             return (
                 <CommentItem key={comment.commentid} comment={comment}/>
             )
         } );
+    } else {
+      commentItems = <DummyItem isPost={false}/>
     }
+    
     return (
       <div className="CommentsList">
       <h3>Comment Section </h3>
