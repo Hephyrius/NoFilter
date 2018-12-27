@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import React, { Component } from 'react';
 import CommentBox from "./CommentBox";
 import CommentsList from "./CommentsList";
@@ -44,6 +45,7 @@ class PostPage extends Component {
               <p></p>
 
               <p alignment="right"> - by {post['author']}</p>
+              <span className="ReplyPost"><Link to={"post=" + postid + "?cid=0"}> Reply </Link></span>
           </div>
         </div>
 

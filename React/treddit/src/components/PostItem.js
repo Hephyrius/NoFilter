@@ -31,7 +31,6 @@ class PostItem extends Component {
               <p></p>
                 <div className="title-area">
                     <span className="title"><Link to={"post=" + this.props.post.postid + "?cid=0"}> {this.props.post.title}</Link></span>
-                    
                 </div>
 
                 <div className="meta-area">
