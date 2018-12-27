@@ -18,6 +18,7 @@ class CommentItem extends Component {
             <span className="time">
               Submitted {this.props.comment.timestamp} by
               <strong> {this.props.comment.author}</strong>
+              <span className="ReplyComment"><Link to={"post=" + this.props.comment.postid + "?cid=" +this.props.comment.commentid }> Reply </Link></span>
             </span>
           </div>
 
