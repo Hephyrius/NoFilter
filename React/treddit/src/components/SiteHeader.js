@@ -22,6 +22,9 @@ class SiteHeader extends Component {
                     <li class="nav-item">
                     <a class="nav-link">  <Link to="/about">About</Link> </a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link">  <Link to="/search">Search</Link> </a>
+                    </li>
                     </ul>
                 </div>
             </nav>
