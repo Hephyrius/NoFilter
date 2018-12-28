@@ -49,7 +49,7 @@ class App extends Component {
   }
 }
 
-const Home = () => <Posts />;
+const Home = () => <Posts filterword={""}/>;
 const newpost = () => <Form /> ;
 const PostP = ({ match }) => ( <PostPage postid={match.params.id} />);
 const AboutP = ({ match }) => ( <About />);
