@@ -22,6 +22,7 @@ class CommentItem extends Component {
                     Submitted {this.props.comment.timestamp} by
                     <strong> {this.props.comment.author}</strong>
                   </span>
+                  <p></p>
                 </div>
               </div>
             </div>

@@ -51,10 +51,13 @@ class PostPage extends Component {
         <PostVote postid={postid} />
         <p></p>
 
-        <CommentsList postid={postid}/>
+        <CommentBox postid={postid}/>
         <p></p>
 
-        <CommentBox postid={postid}/>
+        <CommentsList postid={postid}/>
+        
+
+        
       </div>
     );
   }

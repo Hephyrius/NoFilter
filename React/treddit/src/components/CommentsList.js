@@ -30,9 +30,9 @@ class CommentsList extends Component {
       <h3>Comment Section </h3>
         <div class="container">
             <div class="row">
-            <div class="col-md-8">
+            
               {commentItems}
-              </div>
+              
             </div>
           </div>
         </div>
