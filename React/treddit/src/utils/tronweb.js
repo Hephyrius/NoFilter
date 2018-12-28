@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TDVCWQMCMGrkxj6AcLW7oHQauBBtG3PPqh";
+const contractAddress = "TRe915Wo8vZsXmCMhBiZ8tW37MhKEcVhD2";
 
 export async function createNewPost(title, content, tags) {
 
@@ -227,6 +227,104 @@ export async function VoteOnPost(postid, votetype) {
         })).catch(err => Swal(
             {
                 title:'Down Vote Failed',
+                type: 'error'
+            }
+        ));
+    }
+
+}
+
+//// Comment Related Functions
+
+//get the vote counters from the blockchain
+export async function getCommentVoteCounters() {
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    let comments = JSON.parse(localStorage.getItem("Comments"));
+    let CommentVotes = [];
+
+    if (!comments){
+        comments = [];
+    }
+
+    for(var i=0; i<comments.length; i++){
+        let pid = comments[i]['postid'];
+        let cid = comments[i]['commentid'];
+
+        let id = "0x" + Number(pid).toString(16);
+        let comid = "0x" + Number(cid).toString(16);
+
+        //grab vote data from the blockchain
+        let upvotecall = await contract.getCommentUpVotes(id, comid).call();
+        let up = tronWeb.toBigNumber(upvotecall['_hex']).toNumber();
+
+        let downvotecall = await contract.getCommentDownVotes(id, comid).call();
+        let down = tronWeb.toBigNumber(downvotecall['_hex']).toNumber();
+
+        let commentVote = {
+            postid : pid,
+            commentid: cid,
+            upvotes : up,
+            downvotes: down,
+            total: (up-down)
+        }
+        CommentVotes = CommentVotes.concat(commentVote);
+    } 
+
+    localStorage.setItem("CommentVotes", JSON.stringify(CommentVotes));
+
+}
+
+export async function VoteOnComment(postid, commentid, votetype) {
+
+
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the postid into a useable form
+    let id = "0x" + Number(postid).toString(16);
+    let cid = "0x" + Number(commentid).toString(16);
+
+    if (votetype == 0){
+        //notify the user that the vote has been submitted
+        Swal({title:'Comment Up Voted',
+        type: 'info'
+        });
+        //submit the data to the blockchain
+        contract.UpvoteComment(postid, cid).send({
+            shouldPollResponse:true,
+            callValue:0
+
+        }).then(res => Swal({
+            title:'Up Voted Comment Successfully',
+            type: 'success'
+
+        })).catch(err => Swal(
+            {
+                title:'Comment Vote Failed',
+                type: 'error'
+            }
+        ));
+    }else if (votetype == 1){
+
+        //notify the user that the vote has been submitted
+        Swal({title:'Comment Down Voted',
+        type: 'info'
+        });
+
+        //submit the data to the blockchain
+        contract.DownvoteComment(postid, cid).send({
+            shouldPollResponse:true,
+            callValue:0
+
+        }).then(res => Swal({
+            title:'Comment Down Voted Successfully',
+            type: 'success'
+
+        })).catch(err => Swal(
+            {
+                title:'Comment Vote Failed',
                 type: 'error'
             }
         ));

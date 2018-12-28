@@ -12,7 +12,8 @@ contract NoFilter {
     //comment related variables
     mapping (uint => uint) commentCounter; // keeps track of posts so that every one is unique
     mapping (uint => mapping(uint => address)) commentOwner; //Keeps track of who owns a specific post
-    mapping (uint => mapping(uint => uint)) commentVotes; // keeps track of a posts vote counter
+    mapping (uint => mapping(uint => uint)) commentUpVotes; // keeps track of a posts vote counter
+    mapping (uint => mapping(uint => uint)) commentDownVotes; // keeps track of a posts vote counter
     mapping (address => mapping(uint => mapping(uint => uint))) commentVoters; //keeps track of a users voting history, helps to prevent vote spamming from a single account
     
     constructor () public {
@@ -54,38 +55,6 @@ contract NoFilter {
     //get the owner of a post
     function getOwner(uint postId) public view returns (address) {
         return postOwners[postId];
-    }
-
-    //stores a log comment on the blockchain when commented
-    event CommentCreated (
-        address indexed commenter,
-        uint indexed postId,
-        bytes comment,
-        uint parentComment,
-		uint commentTimestamp,
-		uint commentId
-    );
-    
-    function PostComment(bytes text, uint postId, uint parentComment) public {
-        require(postId >= 0, "comment is not for a valid post");
-        require(postId <= postNumber, "comment is for a non existent post");
-        require(text.length > 0, "comment comment is empty");
-		
-		//update comment related variables
-        uint commentId = commentCounter[postId];
-		
-		//emit to the blockchain
-        emit CommentCreated(msg.sender, postId, text, parentComment, now, commentId);
-        
-
-        commentOwner[postId][commentId] = msg.sender;
-        
-        //deal with upvote data
-        commentVotes[postId][commentId] = 1;
-        commentVoters[msg.sender][postId][commentId] = 1;
-        
-        //increment counter when done
-        commentCounter[postId] = commentId + 1;
     }
     
     //upvote a post 
@@ -130,6 +99,40 @@ contract NoFilter {
     function getVoterData(uint postId, address voter) public view returns (uint) {
         return voters[voter][postId];
     }
+
+    /////////// Comment functionality
+
+    //stores a log comment on the blockchain when commented
+    event CommentCreated (
+        address indexed commenter,
+        uint indexed postId,
+        bytes comment,
+        uint parentComment,
+		uint commentTimestamp,
+		uint commentId
+    );
+    
+    function PostComment(bytes text, uint postId, uint parentComment) public {
+        require(postId >= 0, "comment is not for a valid post");
+        require(postId <= postNumber, "comment is for a non existent post");
+        require(text.length > 0, "comment comment is empty");
+		
+		//update comment related variables
+        uint commentId = commentCounter[postId];
+		
+		//emit to the blockchain
+        emit CommentCreated(msg.sender, postId, text, parentComment, now, commentId);
+        
+
+        commentOwner[postId][commentId] = msg.sender;
+        
+        //deal with upvote data
+        commentUpVotes[postId][commentId] = 1;
+        commentVoters[msg.sender][postId][commentId] = 1;
+        
+        //increment counter when done
+        commentCounter[postId] = commentId + 1;
+    }
     
     //upvote a post 
     function UpvoteComment(uint postId, uint commendId) public {
@@ -139,9 +142,13 @@ contract NoFilter {
         require(commendId >= 0, "comment id is not valid");
         require(commendId <= commentCounter[postId], "comment id is non existent");
         require(commentVoters[msg.sender][postId][commendId] != 1, "Upvote already done");
-        
+
+        if (commentVoters[msg.sender][postId][commendId] == 2) {
+            commentDownVotes[postId][commendId] -= 1;
+        }
+
         commentVoters[msg.sender][postId][commendId] = 1;
-        commentVotes[postId][commendId] += 1;
+        commentUpVotes[postId][commendId] += 1;
     }
     
     //downvote a post 
@@ -153,13 +160,22 @@ contract NoFilter {
         require(commendId <= commentCounter[postId], "comment id is non existent");
         require(commentVoters[msg.sender][postId][commendId] != 2, "Upvote already done");
         
+        if (commentVoters[msg.sender][postId][commendId] == 1) {
+            commentUpVotes[postId][commendId] -= 1;
+        }
+
         commentVoters[msg.sender][postId][commendId] = 2;
-        commentVotes[postId][commendId] -= 1;
+        commentDownVotes[postId][commendId] += 1;
     }
     
     //get the comment vote data
-    function getCommentVotes(uint postId, uint commendId) public view returns (uint) {
-        return commentVotes[postId][commendId];
+    function getCommentUpVotes(uint postId, uint commendId) public view returns (uint) {
+        return commentUpVotes[postId][commendId];
+    }
+
+    //get the comment vote data
+    function getCommentDownVotes(uint postId, uint commendId) public view returns (uint) {
+        return commentDownVotes[postId][commendId];
     }
     
     //get the comment voter data

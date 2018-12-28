@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CommentVote from "./CommentVote";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class CommentItem extends Component {
@@ -6,24 +7,26 @@ class CommentItem extends Component {
       
     return (
       <div className="CommentItem">
-      <div class="container-fluid">
-      <div class="row">
-
-        <div className="content">
-          <div className="title-area">
-            <span className="title">{this.props.comment.content}</span>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-2">
+              <CommentVote postid={this.props.comment.postid} commentid={this.props.comment.commentid} />
+            </div>
+            <div class="col-md-8">
+              <div className="content">
+                <div className="title-area">
+                  <span className="title">{this.props.comment.content}</span>
+                </div>
+                <div className="meta-area">
+                  <span className="time">
+                    Submitted {this.props.comment.timestamp} by
+                    <strong> {this.props.comment.author}</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className="meta-area">
-            <span className="time">
-              Submitted {this.props.comment.timestamp} by
-              <strong> {this.props.comment.author}</strong>
-            </span>
-          </div>
-
         </div>
-      </div>
-      </div>
       </div>
     );
   }
