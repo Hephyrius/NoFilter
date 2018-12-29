@@ -47,18 +47,18 @@ class Form extends React.Component {
                   </div>
                 <p> </p>
 
-                <label> Tag: </label>
-                  <div>
-                    <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
-                  </div>
-                <p> </p>
-
                 <label> Content: </label>
                   <div>
                     <textarea value={this.state.content} cols="40" rows="8" onChange={this.handleContentChange} />
                   </div>
                 <p> </p>
                 
+                <label> Tags: </label>
+                  <div>
+                    <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
+                  </div>
+                <p> </p>
+
                 <input type="submit" class="btn btn-outline-dark" value="Submit" />
               </form>
             </div>
