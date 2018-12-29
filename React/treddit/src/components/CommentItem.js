@@ -15,7 +15,7 @@ class CommentItem extends Component {
             <div class="col-md-8">
               <div className="content">
                 <div className="title-area">
-                  <span className="title">{this.props.comment.content}</span>
+                  <div dangerouslySetInnerHTML={{__html: this.props.comment.content}} />
                 </div>
                 <div className="meta-area">
                   <span className="time">
