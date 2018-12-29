@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {createNewPost} from "../utils/tronweb";
 
 //for the rich text editor:
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill, Mixin, Toolbar } from 'react-quill'; 
 import 'react-quill/dist/quill.snow.css'; // ES6
 
 
@@ -13,14 +13,32 @@ class Form extends React.Component {
       title: '',
       tag: '',
       content: ''
-
     };
+    
+
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleTagChange = this.handleTagChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  modules = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline','strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image'],
+      ['clean']
+    ],
+  }
+
+ formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+  ]
   
 
   handleTitleChange(event) {
@@ -55,7 +73,14 @@ class Form extends React.Component {
                 <p> </p>
 
                 <label> Content: </label>
-                <ReactQuill theme="snow" value={this.state.content} onChange={this.handleContentChange} />
+                <ReactQuill theme="snow"
+                  modules={this.modules}
+                  formats={this.formats}
+                  value={this.state.content} 
+                  onChange={this.handleContentChange}>
+                </ReactQuill>
+
+
                 <p> </p>
                 
                 <label> Tags: </label>
