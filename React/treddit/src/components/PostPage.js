@@ -36,7 +36,9 @@ class PostPage extends Component {
 
               <p></p>
               <div class="container">
-              <p class="lead" align="justify">{post['content']} </p>
+              <p class="lead" align="justify">
+                <div dangerouslySetInnerHTML={{__html: post['content']}} />
+                </p>
               </div>
 
               <p></p>

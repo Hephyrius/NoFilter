@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import {createNewPost} from "../utils/tronweb";
 
+//for the rich text editor:
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // ES6
+
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +21,7 @@ class Form extends React.Component {
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  
 
   handleTitleChange(event) {
     this.setState({title: event.target.value});
@@ -25,8 +31,8 @@ class Form extends React.Component {
     this.setState({tag: event.target.value});
   }
 
-  handleContentChange(event) {
-    this.setState({content: event.target.value});
+  handleContentChange(value) {
+    this.setState({content: value});
   }
 
   handleSubmit(event) {
@@ -35,6 +41,7 @@ class Form extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="Form">
         <div class="container">
@@ -48,9 +55,7 @@ class Form extends React.Component {
                 <p> </p>
 
                 <label> Content: </label>
-                  <div>
-                    <textarea value={this.state.content} cols="40" rows="8" onChange={this.handleContentChange} />
-                  </div>
+                <ReactQuill theme="snow" value={this.state.content} onChange={this.handleContentChange} />
                 <p> </p>
                 
                 <label> Tags: </label>
