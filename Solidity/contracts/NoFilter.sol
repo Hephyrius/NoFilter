@@ -16,6 +16,10 @@ contract NoFilter {
     mapping (uint => mapping(uint => uint)) commentDownVotes; // keeps track of a posts vote counter
     mapping (address => mapping(uint => mapping(uint => uint))) commentVoters; //keeps track of a users voting history, helps to prevent vote spamming from a single account
     
+    //Donation System
+    mapping (address => uint) balances;
+    mapping (uint => uint) postEarnings;
+    
     constructor () public {
         postNumber = 0;
     }
@@ -114,7 +118,7 @@ contract NoFilter {
     
     function PostComment(bytes text, uint postId, uint parentComment) public {
         require(postId >= 0, "comment is not for a valid post");
-        require(postId <= postNumber, "comment is for a non existent post");
+        require(postId < postNumber, "comment is for a non existent post");
         require(text.length > 0, "comment comment is empty");
 		
 		//update comment related variables
@@ -183,10 +187,60 @@ contract NoFilter {
         return commentVoters[commenter][postId][commendId];
     } 
 
-    // View Functions Used by Front End
-
     //get the total number of posts
     function getPostCounter() public view returns (uint) {
         return postNumber;
     }
+    
+    //Donation System 
+    
+    //make a donation to a post
+    function makeDonation(uint postId) public payable {
+        require(postId >= 0, "votes is not for a valid post");
+        require(postId < postNumber, "votes is for a non existent post");
+        require(msg.value > 0, "no attached value");
+        address owner = postOwners[postId];
+        balances[owner] += msg.value;
+        postEarnings[postId] += msg.value;
+        emit DonationMade(msg.sender, msg.value, now, postId);
+    }
+    
+    //Invoked when a donation is made
+    event DonationMade (
+        address indexed donator,
+        uint indexed donationValue,
+        uint donationTimestamp,
+        uint postid
+    );
+    
+    //get post donations
+    function getPostDonations(uint postId) public view returns (uint) {
+        return postEarnings[postId];
+    }
+    
+    //get user balance
+    function getBalance(address user) public view returns (uint) {
+        return balances[user];
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
