@@ -182,7 +182,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 983,
+                        "referencedDeclaration": 1082,
                         "src": "153:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -286,7 +286,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 983,
+                        "referencedDeclaration": 1082,
                         "src": "223:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -832,7 +832,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 983,
+                        "referencedDeclaration": 1082,
                         "src": "153:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -936,7 +936,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 983,
+                        "referencedDeclaration": 1082,
                         "src": "223:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1378,9 +1378,9 @@
     "*": {
       "events": {},
       "links": {},
-      "address": "41ea984d2baac66eba49af6e57b27b86ff70d47d3e"
+      "address": "416330d9f7dae1db140311a64ffcbcac01b0b88e75"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-30T15:48:03.751Z"
+  "updatedAt": "2018-12-30T16:08:37.952Z"
 }

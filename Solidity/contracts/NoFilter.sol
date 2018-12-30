@@ -21,6 +21,10 @@ contract NoFilter {
     mapping (uint => uint) postEarnings;
     mapping (uint => mapping(uint => uint)) commentEarnings;
     
+    //username System
+    mapping (bytes32 => bool) usernamesTaken;
+    mapping (address => bytes32) usernames;
+    
     constructor () public {
         postNumber = 0;
     }
@@ -274,6 +278,40 @@ contract NoFilter {
         return balances[user];
     }
     
+    // Username System
+    //Invoked when the post has been created, so that the dApp can access the content
+    event UsernameCreated (
+        address indexed user,
+        bytes32 indexed username
+    );
+    
+    //create a new post, done by storing data in the logs. data can be in any form as long as it is byte data. This means data can be compressed
+    function SetUsername(bytes32 username) public {
+        
+        require (usernamesTaken[username] == false, "username is registered to an owner already");
+        
+        bytes32 currentUsername = usernames[msg.sender];
+        require(currentUsername != username, "This username is already set to the sender");
+        
+        //if the user does not have a username then set it
+        if(currentUsername == 0x0){
+            usernames[msg.sender] = username;
+            usernamesTaken[username] = true;
+        }else{
+        //else update the currently known username and make the old username available to other users
+            usernames[msg.sender] = username;
+            usernamesTaken[username] = true;
+            usernamesTaken[currentUsername] = false;
+        }
+        //posts are stored in logs, it allows to reduce post invocation cost
+        emit UsernameCreated(msg.sender, username);
+        
+    }
+    
+    //get the stored username for a given address
+    function getUsername(address user) public view returns (bytes32) {
+        return usernames[user];
+    }
 
 }
 

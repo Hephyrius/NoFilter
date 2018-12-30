@@ -13,18 +13,21 @@ class SiteHeader extends Component {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link"> <Link to="/">Home</Link> </a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link">  <Link to="/new-post">Create New Post</Link> </a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link">  <Link to="/about">About</Link> </a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link">  <Link to="/search">Search</Link> </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link"> <Link to="/">Home</Link> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">  <Link to="/new-post">Create New Post</Link> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">  <Link to="/about">About</Link> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">  <Link to="/search">Search</Link> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">  <Link to="/account">Account</Link> </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
