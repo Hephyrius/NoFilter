@@ -80,6 +80,24 @@ class Account extends React.Component {
 
             </div>
 
+            <div className="Usename">
+                <h3>Update Username</h3>
+
+                <form onSubmit={this.handleUserSubmit}>
+                
+                    <label> Username</label>
+
+                    <div>
+                        <input type="Text" maxLength={12} value={this.state.Username} onChange={this.handleUserChange} />
+                    </div>
+
+                    <p></p>
+                        <input type="submit" class="btn btn-outline-dark btn-sm" value="Change" />
+                    <p></p>
+
+                </form>
+            </div>
+
             <div className="Deposit">
                 <h3>Deposit Trx</h3>
 
@@ -116,24 +134,6 @@ class Account extends React.Component {
                     <p></p>
                 </form>
 
-            </div>
-
-            <div className="Usename">
-                <h3>Update Username</h3>
-
-                <form onSubmit={this.handleUserSubmit}>
-                
-                    <label> Username</label>
-
-                    <div>
-                        <input type="Text" maxLength={12} value={this.state.Username} onChange={this.handleUserChange} />
-                    </div>
-
-                    <p></p>
-                        <input type="submit" class="btn btn-outline-dark btn-sm" value="Change" />
-                    <p></p>
-
-                </form>
             </div>
 
         </div>
