@@ -69,16 +69,15 @@ class Account extends React.Component {
             <div className="Information">
                 <h3>Current User Information</h3>
                 <p></p>
-                    <strong>Address: </strong> {userData['TronAddress']}
-                <p></p>
-                    <strong>Hex Address: </strong> {userData['HexAddress']}
+                    <strong>Username: </strong> {userData['UserName']}
                 <p></p>
                     <strong>Balance: </strong> {Number(userData['SunBalance'])/1000000} Trx
                 <p></p>
                     <strong>Address: </strong> {userData['TronAddress']}
                 <p></p>
-                    <strong>Username: </strong> {userData['UserName']}
+                    <strong>Hex Address: </strong> {userData['HexAddress']}
                 <p></p>
+
             </div>
 
             <div className="Deposit">

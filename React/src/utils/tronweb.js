@@ -413,7 +413,7 @@ export async function DonateTrx(postid, trxAmount) {
     let id = "0x" + Number(postid).toString(16);
 
 
-    Swal({title:'sent transaction to Donate ' + trxAmount.toString() + "trx to poster from contract balance",
+    Swal({title:'Transaction to Donate ' + trxAmount.toString() + "trx from your contract balance sent",
     type: 'info'
     });
 
