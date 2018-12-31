@@ -2,20 +2,31 @@ import React, { Component } from 'react';
 import CommentBox from "./CommentBox";
 import CommentsList from "./CommentsList";
 import PostVote from "./PostVote";
+import Donate from "./Donate";
 
 class PostPage extends Component {
 
   render() {
     var postid = this.props.postid;
     let post;
+    let donation;
     if(this.props.postid) {
       let posts = JSON.parse(localStorage.getItem("Posts"));
+      let donations = JSON.parse(localStorage.getItem("Donations")); 
       for(var i=0; i<posts.length; i++){
         if(posts[i]['postid'] === this.props.postid){
           post = posts[i];
           break;
         }
+      }
+
+      for(var i=0; i<donations.length; i++){
+        if(donations[i]['postid'] === this.props.postid){
+          donation = donations[i];
+          break;
+        }
       } 
+
     }
     if(!post) {
       post = {
@@ -41,13 +52,13 @@ class PostPage extends Component {
                 </p>
               </div>
 
-              <p></p>
-              <p alignment="left">Posted on {post['timestamp']}  </p>
-              <p></p>
+              Posted on {post['timestamp']}  by {post['author']}
 
-              <p alignment="right"> - by {post['author']}</p>
           </div>
         </div>
+        <p></p>
+        <Donate postid={postid} donation={donation}/>
+        <p></p>
 
         <h3>Vote</h3>
         <PostVote postid={postid} />

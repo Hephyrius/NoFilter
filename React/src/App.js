@@ -9,7 +9,7 @@ import SiteHeader from "./components/SiteHeader";
 import Search from "./components/Search";
 import Account from "./components/Account";
 import "./bootstrap.css";
-import {getPosts, getComments, getVoteCounters, getCommentVoteCounters, getUserData} from "./utils/tronweb";
+import {getPosts, getComments, getVoteCounters, getCommentVoteCounters, getUserData, getDonations} from "./utils/tronweb";
 
 class App extends Component {
   
@@ -23,6 +23,7 @@ class App extends Component {
     getVoteCounters()
     getCommentVoteCounters()
     getUserData()
+    getDonations()
   }
 
   render() {

@@ -277,8 +277,6 @@ export async function getCommentVoteCounters() {
 
 export async function VoteOnComment(postid, commentid, votetype) {
 
-
-
     //load the contract 
     const contract = await tronWeb.contract().at(contractAddress);
 
@@ -402,6 +400,71 @@ export async function withdrawTrx(takeAll, trxAmount) {
             type: 'error'
         }
     ));
+}
+
+export async function DonateTrx(postid, trxAmount) {
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the postid into a useable form
+    let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
+    let sunHexValue = "0x" + Number(sunAmount).toString(16);
+    let id = "0x" + Number(postid).toString(16);
+
+
+    Swal({title:'sent transaction to Donate ' + trxAmount.toString() + "trx to poster from contract balance",
+    type: 'info'
+    });
+
+
+    //submit the data to the blockchain
+    contract.makeDonation(id, sunHexValue).send({
+        shouldPollResponse:true,
+        callValue: 0
+
+    }).then(res => Swal({
+        title:'Donation Successful',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+            title:'Donation Failed',
+            type: 'error'
+        }
+    ));
+}
+
+//get the vote counters from the blockchain
+export async function getDonations() {
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    let posts = JSON.parse(localStorage.getItem("Posts"));
+    let Donations = [];
+
+    if (!posts){
+        posts = [];
+    }
+
+    for(var i=0; i<posts.length; i++){
+        let pid = posts[i]['postid'];
+        let id = "0x" + Number(pid).toString(16);
+
+        //grab vote data from the blockchain
+        let ContractPostDonation = await contract.getPostDonations(id).call();
+        let Sun = tronWeb.toBigNumber(ContractPostDonation['_hex']).toNumber();
+
+        let Donation = {
+            postid : pid,
+            SunDonations : Sun,
+            TrxDonation: (Sun/1000000)
+        }
+
+        Donations = Donations.concat(Donation);
+    } 
+
+    localStorage.setItem("Donations", JSON.stringify(Donations));
+
 }
 
 //USERNAME SYSTEM
