@@ -8,6 +8,22 @@ export function a2hex(str) {
     return "0x" + arr.join('');
 }
 
+//convert ascii text to 32byte
+export function aTo32bytehex(str, length=32) {
+    var arr = [];
+    for (var i = 0, l = str.length; i < l; i ++) {
+      var hex = Number(str.charCodeAt(i)).toString(16);
+      arr.push(hex);
+    }
+    if(length != 0){
+    for (var i = arr.length; i < length; i ++) {
+        var hex = "00";
+        arr.push(hex);
+        }
+    }
+    return "0x" + arr.join('');
+}
+
 //convert hex to ascii
 export function hex2a(hexx) {
     var hex = hexx.toString();//force conversion
@@ -21,3 +37,5 @@ export function Time2a(timestamp){
     var s = new Date(timestamp*1000).toLocaleDateString("en-GB");
     return s;
 }
+
+

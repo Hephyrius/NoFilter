@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-import {a2hex, hex2a, Time2a} from "./parser"
+import {a2hex, hex2a, Time2a, aTo32bytehex} from "./parser"
 
 const TronWeb = require('tronweb')
 
@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TMTJWc1Zigx32pvAy2GqAnKDj8iVrfDQug";
+const contractAddress = "TLdonqMUiiJg3WcKL3eSBwgmN4YGNTaLtn";
 
 export async function createNewPost(title, content, tags) {
 
@@ -330,4 +330,139 @@ export async function VoteOnComment(postid, commentid, votetype) {
         ));
     }
 
+}
+
+// DEPOSIT, DONATION and WITHDRAW SYSTEM
+export async function DepositTrx(trxAmount) {
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert tron amount into a sun value as sun is used as the call value
+    let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
+
+    //notify the user that the deposit has been attempted
+    Swal({title:'transaction to deposit ' + sunAmount.toString() + "Sun (" + trxAmount.toString() + " trx) has been sent",
+    type: 'info'
+    });
+
+    //submit the data to the blockchain
+    contract.deposit().send({
+        shouldPollResponse:true,
+        callValue: sunAmount
+
+    }).then(res => Swal({
+        title:'Deposit Made Successfully',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+            title:'Deposit Failed',
+            type: 'error'
+        }
+    ));
+}
+
+export async function withdrawTrx(takeAll, trxAmount) {
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert the postid into a useable form
+    let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
+    let sunHexValue = "0x" + Number(sunAmount).toString(16);
+
+    //notify the user that the deposit has been attempted
+    if(takeAll == true){
+
+        Swal({title:'transaction to withdraw Current trx balance has been sent',
+        type: 'info'
+        });
+
+    }else {
+
+        Swal({title:'transaction to withdraw ' + sunAmount.toString() + "Sun (" + trxAmount.toString() + " trx) has been sent",
+        type: 'info'
+        });
+
+    }
+
+    //submit the data to the blockchain
+    contract.withdraw(tronWeb.toHex(takeAll), sunHexValue).send({
+        shouldPollResponse:true,
+        callValue: 0
+
+    }).then(res => Swal({
+        title:'Withdrawal Successful',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+            title:'Withdrawal Failed',
+            type: 'error'
+        }
+    ));
+}
+
+//USERNAME SYSTEM
+
+export async function ChangeUsername(UsernameString) {
+
+    //load the contract 
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    //convert tron amount into a sun value as sun is used as the call value
+    let user = aTo32bytehex(UsernameString)
+
+    //notify the user that the deposit has been attempted
+    Swal({title:'Changing Username to : ' + UsernameString,
+    type: 'info'
+    });
+
+    //submit the data to the blockchain
+    contract.SetUsername(user).send({
+        shouldPollResponse:true,
+        callValue: 0
+
+    }).then(res => Swal({
+        title:'Username Changed Successfully',
+        type: 'success'
+
+    })).catch(err => Swal(
+        {
+            title:'Username Change Failed',
+            type: 'error'
+        }
+    ));
+}
+
+//get the current users data
+export async function getUserData() {
+    const contract = await tronWeb.contract().at(contractAddress);
+
+    let user = JSON.parse(localStorage.getItem("User"));
+
+    if (!user){
+        user = [];
+    }
+
+    //grab the sender address from the blockchain
+    let senderAddress = await contract.getSenderAddress().call();
+    let hexAdd = senderAddress;
+    let add = tronWeb.address.fromHex(hexAdd);
+
+    let ContractBalance = await contract.getBalance(hexAdd).call();
+    let balance = tronWeb.toBigNumber(ContractBalance['_hex']).toNumber();
+    
+    let ContractUsername = await contract.getUsername(hexAdd).call();
+    let username = hex2a(ContractUsername);
+
+    user = {
+        TronAddress : add,
+        HexAddress : hexAdd,
+        SunBalance : balance,
+        UserName : username
+    }
+
+    localStorage.setItem("User", JSON.stringify(user));
 }

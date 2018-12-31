@@ -19,7 +19,7 @@ contract NoFilter {
     //Donation System
     mapping (address => uint) balances;
     mapping (uint => uint) postEarnings;
-    mapping (uint => mapping(uint => uint)) commentEarnings;
+    //mapping (uint => mapping(uint => uint)) commentEarnings;
     
     //username System
     mapping (bytes32 => bool) usernamesTaken;
@@ -313,25 +313,10 @@ contract NoFilter {
         return usernames[user];
     }
 
+    //UTIL FUNCTIONS
+
+    //get the user
+    function getSenderAddress() public view returns (address) {
+        return msg.sender;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

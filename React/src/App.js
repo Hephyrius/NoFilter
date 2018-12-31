@@ -7,8 +7,9 @@ import Form from "./components/Form";
 import About from "./components/About";
 import SiteHeader from "./components/SiteHeader";
 import Search from "./components/Search";
+import Account from "./components/Account";
 import "./bootstrap.css";
-import {getPosts, getComments, getVoteCounters, getCommentVoteCounters} from "./utils/tronweb";
+import {getPosts, getComments, getVoteCounters, getCommentVoteCounters, getUserData} from "./utils/tronweb";
 
 class App extends Component {
   
@@ -21,6 +22,7 @@ class App extends Component {
     }]
     getVoteCounters()
     getCommentVoteCounters()
+    getUserData()
   }
 
   render() {
@@ -42,6 +44,8 @@ class App extends Component {
 
           <Route path="/search" component={SearchP}/>
 
+          <Route path = "/account" component ={AccountP} />
+
         </div>
       </div>
       </Router>
@@ -54,5 +58,6 @@ const newpost = () => <Form /> ;
 const PostP = ({ match }) => ( <PostPage postid={match.params.id} />);
 const AboutP = ({ match }) => ( <About />);
 const SearchP = ({ match }) => ( <Search />);
+const AccountP = ({ match }) => ( <Account />);
 
 export default App;
