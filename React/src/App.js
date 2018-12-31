@@ -6,6 +6,7 @@ import PostPage from "./components/PostPage";
 import Form from "./components/Form";
 import About from "./components/About";
 import SiteHeader from "./components/SiteHeader";
+import SiteFooter from "./components/SiteFooter";
 import Search from "./components/Search";
 import Account from "./components/Account";
 import "./bootstrap.css";
@@ -33,9 +34,7 @@ class App extends Component {
         <div class="container">
           <SiteHeader />
 
-          <div className="FormArea">
           <Route path="/new-post" component={newpost} />
-          </div>
 
           <Route path="/" exact component={Home} />
 
@@ -47,9 +46,12 @@ class App extends Component {
 
           <Route path = "/account" component ={AccountP} />
 
+          <SiteFooter />
         </div>
+        
       </div>
       </Router>
+      
     );
   }
 }
