@@ -23,6 +23,7 @@ class Donate extends React.Component {
   }
 
   render() {
+    let userData = JSON.parse(localStorage.getItem("User"))
     return (
     <div className="Donate">
         <div class="container">
@@ -30,11 +31,12 @@ class Donate extends React.Component {
             <form onSubmit={this.handleSubmit}>
             <strong>Post Earnings: {this.props.donation['TrxDonation']}Trx </strong> 
             <h3>Donate</h3>
-            
                 <div>
                     <input type="number" value={this.state.TrxValue} onChange={this.handleChange} /> Trx
                 </div>
                 <p></p>
+
+                <p><strong> You currently have a contract balance of {Number(userData['SunBalance'])/1000000}TRX</strong></p>
 
                 <input type="submit" class="btn btn-outline-dark" value="Donate" />
             </form>
