@@ -22,7 +22,7 @@ class Search extends Component {
             <div id="container" class="container">
                 <div class="row text-black">
                     <div class="col-sm-10 offset-sm-1 text-center">
-                        <h2 class="display-3">Search</h2>
+                        <h3 class="display-3">Search Posts</h3>
                             <div class="info-form">
                                 <form>  
                                     <div class="form-group">
