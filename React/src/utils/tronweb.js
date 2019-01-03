@@ -504,7 +504,13 @@ export async function ChangeUsername(UsernameString) {
 
 //get the current users data
 export async function getUserData() {
-    const contract = await tronWebEvents.contract().at(contractAddress);
+
+    var tronWebDynamic = tronWebEvents;
+
+    if (!!window.tronWeb){
+        tronWebDynamic = tronWeb;
+    }
+    const contract = await tronWebDynamic.contract().at(contractAddress);
 
     let user = JSON.parse(localStorage.getItem("User"));
 
@@ -515,7 +521,7 @@ export async function getUserData() {
     //grab the sender address from the blockchain
     let senderAddress = await contract.getSenderAddress().call();
     let hexAdd = senderAddress;
-    let add = tronWebEvents.address.fromHex(hexAdd);
+    let add = tronWebDynamic.address.fromHex(hexAdd);
 
     let ContractBalance = await contract.getBalance(hexAdd).call();
     let balance = tronWebEvents.toBigNumber(ContractBalance['_hex']).toNumber();
