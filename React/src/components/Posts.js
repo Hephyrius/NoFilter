@@ -18,16 +18,23 @@ class Posts extends Component {
       posts = filter
     }
 
-    if(posts.length > 0) {
-        postItems = posts.map(post => {
-            return (
-                <PostItem key={post.title} post={post} votes={votes}/>
-            )
-        } );
+    if(!posts){
+      posts = []
+    }
+    else{
 
-    } else {
+    
+      if(posts.length > 0) {
+          postItems = posts.map(post => {
+              return (
+                  <PostItem key={post.title} post={post} votes={votes}/>
+              )
+          } );
 
-      postItems = <DummyItem isPost={true}/>
+      } else {
+
+        postItems = <DummyItem isPost={true}/>
+      }
     }
     return (
       <div className="Postss">

@@ -7,14 +7,14 @@ const TronWeb = require('tronweb')
 
 //connecting tronweb to the local docker node
 const tronWeb = new TronWeb(
-    "http://127.0.0.1:9090",
-    "http://127.0.0.1:9090",
-    "http://127.0.0.1:9090",
+    "https://api.shasta.trongrid.io",
+    "https://api.shasta.trongrid.io",
+    "https://api.shasta.trongrid.io",
     'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
 )
 
 //address of the contract
-const contractAddress = "TLdonqMUiiJg3WcKL3eSBwgmN4YGNTaLtn";
+const contractAddress = "TSXkRdMMh6mmA7ngf5JpEtZVgxFviLK4Gv";
 
 export async function createNewPost(title, content, tags) {
 
