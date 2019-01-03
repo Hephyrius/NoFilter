@@ -20,6 +20,7 @@ const tronWebEvents = new TronWeb(
 const contractAddress = "TSXkRdMMh6mmA7ngf5JpEtZVgxFviLK4Gv";
 
 export async function createNewPost(title, content, tags) {
+    tronWeb = window.tronWeb;
 
     //notify the user that the post has been submitted
     Swal({title:'Post Transaction Submitted',
@@ -84,6 +85,7 @@ export async function getPosts() {
 }
 
 export async function createNewComment(commentText, postid,  parentComment) {
+    tronWeb = window.tronWeb;
 
     //notify the user that the comment has been submitted
     Swal({title:'Comment Transaction Submitted',
@@ -182,6 +184,7 @@ export async function getVoteCounters() {
 }
 
 export async function VoteOnPost(postid, votetype) {
+    tronWeb = window.tronWeb;
 
 
 
@@ -279,6 +282,7 @@ export async function getCommentVoteCounters() {
 }
 
 export async function VoteOnComment(postid, commentid, votetype) {
+    tronWeb = window.tronWeb;
 
     //load the contract 
     const contract = await tronWeb.contract().at(contractAddress);
@@ -335,6 +339,7 @@ export async function VoteOnComment(postid, commentid, votetype) {
 
 // DEPOSIT, DONATION and WITHDRAW SYSTEM
 export async function DepositTrx(trxAmount) {
+    tronWeb = window.tronWeb;
 
     //load the contract 
     const contract = await tronWeb.contract().at(contractAddress);
@@ -365,6 +370,7 @@ export async function DepositTrx(trxAmount) {
 }
 
 export async function withdrawTrx(takeAll, trxAmount) {
+    tronWeb = window.tronWeb;
 
     //load the contract 
     const contract = await tronWeb.contract().at(contractAddress);
@@ -406,6 +412,7 @@ export async function withdrawTrx(takeAll, trxAmount) {
 }
 
 export async function DonateTrx(postid, trxAmount) {
+    tronWeb = window.tronWeb;
 
     //load the contract 
     const contract = await tronWeb.contract().at(contractAddress);
@@ -473,6 +480,7 @@ export async function getDonations() {
 //USERNAME SYSTEM
 
 export async function ChangeUsername(UsernameString) {
+    tronWeb = window.tronWeb;
 
     //load the contract 
     const contract = await tronWeb.contract().at(contractAddress);
