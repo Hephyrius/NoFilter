@@ -5,8 +5,11 @@ import {a2hex, hex2a, Time2a, aTo32bytehex} from "./parser"
 const TronWeb = require('tronweb')
 
 
-//connecting tronweb to the local docker node
-const tronWeb = new TronWeb(
+//this is the tronweb used for the smart contract transactions
+var tronWeb = window.tronWeb;
+
+//this is the tronweb used for events
+const tronWebEvents = new TronWeb(
     "https://api.shasta.trongrid.io",
     "https://api.shasta.trongrid.io",
     "https://api.shasta.trongrid.io",
@@ -53,14 +56,14 @@ export async function createNewPost(title, content, tags) {
 export async function getPosts() {
 
     //load the contract 
-    const events = await tronWeb.getEventResult(contractAddress, 0, "PostContent", 0,  200, 1);
+    const events = await tronWebEvents.getEventResult(contractAddress, 0, "PostContent", 0,  200, 1);
 
     var posts = []
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['author'];
         address = address.substring(2, address.length);
-        address = tronWeb.address.fromHex(address)
+        address = tronWebEvents.address.fromHex(address)
 
         //format data so it can be used and stored better
         var post = {
@@ -117,14 +120,14 @@ export async function createNewComment(commentText, postid,  parentComment) {
 export async function getComments() {
 
     //load the contract 
-    const events = await tronWeb.getEventResult(contractAddress, 0, "CommentCreated", 0,  200, 1);
+    const events = await tronWebEvents.getEventResult(contractAddress, 0, "CommentCreated", 0,  200, 1);
 
     var comments = []
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['commenter'];
         address = address.substring(2, address.length);
-        address = tronWeb.address.fromHex(address)
+        address = tronWebEvents.address.fromHex(address)
         //format data so it can be used and stored better
         var comment = {
             parentComment: hex2a(events[i]['result']['parentComment']),
@@ -145,7 +148,7 @@ export async function getComments() {
 
 //get the vote counters from the blockchain
 export async function getVoteCounters() {
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await tronWebEvents.contract().at(contractAddress);
 
     let posts = JSON.parse(localStorage.getItem("Posts"));
     let votes = [];
@@ -160,10 +163,10 @@ export async function getVoteCounters() {
 
         //grab vote data from the blockchain
         let upvotecall = await contract.getUpVotes(id).call();
-        let up = tronWeb.toBigNumber(upvotecall['_hex']).toNumber();
+        let up = tronWebEvents.toBigNumber(upvotecall['_hex']).toNumber();
 
         let downvotecall = await contract.getDownVotes(id).call();
-        let down = tronWeb.toBigNumber(downvotecall['_hex']).toNumber();
+        let down = tronWebEvents.toBigNumber(downvotecall['_hex']).toNumber();
 
         let postVote = {
             postid : pid,
@@ -238,7 +241,7 @@ export async function VoteOnPost(postid, votetype) {
 
 //get the vote counters from the blockchain
 export async function getCommentVoteCounters() {
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await tronWebEvents.contract().at(contractAddress);
 
     let comments = JSON.parse(localStorage.getItem("Comments"));
     let CommentVotes = [];
@@ -256,10 +259,10 @@ export async function getCommentVoteCounters() {
 
         //grab vote data from the blockchain
         let upvotecall = await contract.getCommentUpVotes(id, comid).call();
-        let up = tronWeb.toBigNumber(upvotecall['_hex']).toNumber();
+        let up = tronWebEvents.toBigNumber(upvotecall['_hex']).toNumber();
 
         let downvotecall = await contract.getCommentDownVotes(id, comid).call();
-        let down = tronWeb.toBigNumber(downvotecall['_hex']).toNumber();
+        let down = tronWebEvents.toBigNumber(downvotecall['_hex']).toNumber();
 
         let commentVote = {
             postid : pid,
@@ -437,7 +440,7 @@ export async function DonateTrx(postid, trxAmount) {
 
 //get the vote counters from the blockchain
 export async function getDonations() {
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await tronWebEvents.contract().at(contractAddress);
 
     let posts = JSON.parse(localStorage.getItem("Posts"));
     let Donations = [];
@@ -452,7 +455,7 @@ export async function getDonations() {
 
         //grab vote data from the blockchain
         let ContractPostDonation = await contract.getPostDonations(id).call();
-        let Sun = tronWeb.toBigNumber(ContractPostDonation['_hex']).toNumber();
+        let Sun = tronWebEvents.toBigNumber(ContractPostDonation['_hex']).toNumber();
 
         let Donation = {
             postid : pid,
@@ -501,7 +504,7 @@ export async function ChangeUsername(UsernameString) {
 
 //get the current users data
 export async function getUserData() {
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await tronWebEvents.contract().at(contractAddress);
 
     let user = JSON.parse(localStorage.getItem("User"));
 
@@ -512,10 +515,10 @@ export async function getUserData() {
     //grab the sender address from the blockchain
     let senderAddress = await contract.getSenderAddress().call();
     let hexAdd = senderAddress;
-    let add = tronWeb.address.fromHex(hexAdd);
+    let add = tronWebEvents.address.fromHex(hexAdd);
 
     let ContractBalance = await contract.getBalance(hexAdd).call();
-    let balance = tronWeb.toBigNumber(ContractBalance['_hex']).toNumber();
+    let balance = tronWebEvents.toBigNumber(ContractBalance['_hex']).toNumber();
     
     let ContractUsername = await contract.getUsername(hexAdd).call();
     let username = hex2a(ContractUsername);
