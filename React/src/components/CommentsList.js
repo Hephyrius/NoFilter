@@ -29,11 +29,11 @@ class CommentsList extends Component {
       <div className="CommentsList">
       <h3>Comment Section </h3>
         <div class="container">
-            <div class="row">
+            
             
               {commentItems}
               
-            </div>
+            
           </div>
         </div>
     );
