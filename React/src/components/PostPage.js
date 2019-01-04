@@ -3,6 +3,7 @@ import CommentBox from "./CommentBox";
 import CommentsList from "./CommentsList";
 import PostVote from "./PostVote";
 import Donate from "./Donate";
+import Tooltip from '@material-ui/core/Tooltip';
 
 class PostPage extends Component {
 
@@ -61,7 +62,8 @@ class PostPage extends Component {
                 </p>
               </div>
 
-              Posted on {post['timestamp']} at {post['hms']} by {username} [{post['author']}]
+              Posted on {post['timestamp']} at {post['hms']} by
+              <Tooltip title={post['author']}><strong> {username}</strong></Tooltip>
 
           </div>
         </div>

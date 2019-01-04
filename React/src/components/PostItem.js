@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PostVote from "./PostVote";
+
+import Tooltip from '@material-ui/core/Tooltip';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class PostItem extends Component {
@@ -47,7 +49,7 @@ class PostItem extends Component {
 
                   <span className="time">
                     Submitted at {this.props.post.hms} on {this.props.post.timestamp} by
-                    <strong> {username}[{this.props.post.author}]</strong>
+                    <Tooltip title={this.props.post.author}><strong> {username}</strong></Tooltip>
                   </span>
                 </div>
               </div>

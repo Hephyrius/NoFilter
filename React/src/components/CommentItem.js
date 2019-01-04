@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CommentVote from "./CommentVote";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Tooltip from '@material-ui/core/Tooltip';
 
 class CommentItem extends Component {
   render() {
@@ -27,7 +28,7 @@ class CommentItem extends Component {
                 <div className="meta-area">
                   <span className="time">
                     Submitted {this.props.comment.hms} {this.props.comment.timestamp} by
-                    <strong> {username}[{this.props.comment.author}]</strong>
+                    <Tooltip title={this.props.comment.author}><strong> {username}</strong></Tooltip>
                   </span>
                   <p></p>
                 </div>
