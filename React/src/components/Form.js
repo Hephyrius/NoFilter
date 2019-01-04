@@ -93,6 +93,16 @@ class Form extends React.Component {
               </form>
             </div>
           </div>
+          <div class="container">
+            <div>
+              <p></p>
+              <h3> Post Preview </h3>
+              <p></p>
+            </div>
+            
+            
+            <div dangerouslySetInnerHTML={{__html: this.state.content}} />
+            </div>
         </div>
     );
   }
