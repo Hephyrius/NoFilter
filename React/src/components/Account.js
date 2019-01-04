@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import {DepositTrx, withdrawTrx, ChangeUsername} from "../utils/tronweb";
 
 class Account extends React.Component {
@@ -65,77 +67,93 @@ class Account extends React.Component {
         <div class="container">
 
             <h2>Account Settings and Information</h2>
+            <Tabs>
+                <TabList>
+                    <Tab>Current User Information</Tab>
+                    <Tab>Update Username</Tab>
+                    <Tab>Deposit Trx</Tab>
+                    <Tab>Withdraw Trx</Tab>
+                </TabList>
 
-            <div className="Information">
-                <h3>Current User Information</h3>
-                <p></p>
-                    <strong>Username: </strong> {userData['UserName']}
-                <p></p>
-                    <strong>Balance: </strong> {Number(userData['SunBalance'])/1000000} Trx
-                <p></p>
-                    <strong>Address: </strong> {userData['TronAddress']}
-                <p></p>
-                    <strong>Hex Address: </strong> {userData['HexAddress']}
-                <p></p>
-
-            </div>
-
-            <div className="Usename">
-                <h3>Update Username</h3>
-
-                <form onSubmit={this.handleUserSubmit}>
-                
-                    <label> Username</label>
-
-                    <div>
-                        <input type="Text" maxLength={12} value={this.state.Username} onChange={this.handleUserChange} />
-                    </div>
-
+            
+            <TabPanel>
+                <div className="Information">.
+                    <h3>Current User Information</h3>
                     <p></p>
-                        <input type="submit" class="btn btn-outline-dark btn-sm" value="Change" />
+                        <strong>Username: </strong> {userData['UserName']}
+                    <p></p>
+                        <strong>Balance: </strong> {Number(userData['SunBalance'])/1000000} Trx
+                    <p></p>
+                        <strong>Address: </strong> {userData['TronAddress']}
+                    <p></p>
+                        <strong>Hex Address: </strong> {userData['HexAddress']}
                     <p></p>
 
-                </form>
-            </div>
+                </div>
+            </TabPanel>
 
-            <div className="Deposit">
-                <h3>Deposit Trx</h3>
+            <TabPanel>
+                <div className="Usename">
+                    <h3>Update Username</h3>
 
-                <form onSubmit={this.handleDepositSubmit}>
-                    <label> Deposit Value </label>
-
-                    <div>
-                        <input type="number" value={this.state.DepositValue} onChange={this.handleDepositChange} />
-                    </div>
-
-                    <p></p>
-                        <input type="submit" class="btn btn-outline-dark btn-sm" value="Deposit" />
-                    <p></p>
-                </form>
-
-            </div>
-
-            <div className="Withdraw">
-                <h3>Withdraw Trx</h3>
-
-                <form onSubmit={this.handleWithdrawSubmit}>
-                    <label> Withdrawal Amount: </label>
-                    <div>
-                        <input type="number" value={this.state.WithdrawValue} onChange={this.handleWithdrawChange} />
-                    </div>
-                    <p></p>
+                    <form onSubmit={this.handleUserSubmit}>
                     
-                    <div>
-                        <label> Withdrawal Entire Balance : </label><input type="checkbox" value={this.state.WithdrawAll} onChange={this.handleWithdrawAllChange} />
-                    </div>
-                    <p></p>
+                        <label> Username</label>
 
-                     <input type="submit" class="btn btn-outline-dark btn-sm" value="Withdraw" />
-                    <p></p>
-                </form>
+                        <div>
+                            <input type="Text" maxLength={12} value={this.state.Username} onChange={this.handleUserChange} />
+                        </div>
 
-            </div>
+                        <p></p>
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Change" />
+                        <p></p>
 
+                    </form>
+                </div>
+            </TabPanel>
+
+            <TabPanel>
+                <div className="Deposit">
+                    <h3>Deposit Trx</h3>
+
+                    <form onSubmit={this.handleDepositSubmit}>
+                        <label> Deposit Value </label>
+
+                        <div>
+                            <input type="number" value={this.state.DepositValue} onChange={this.handleDepositChange} />
+                        </div>
+
+                        <p></p>
+                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Deposit" />
+                        <p></p>
+                    </form>
+
+                </div>
+            </TabPanel>
+
+            <TabPanel>
+                <div className="Withdraw">
+                    <h3>Withdraw Trx</h3>
+
+                    <form onSubmit={this.handleWithdrawSubmit}>
+                        <label> Withdrawal Amount: </label>
+                        <div>
+                            <input type="number" value={this.state.WithdrawValue} onChange={this.handleWithdrawChange} />
+                        </div>
+                        <p></p>
+                        
+                        <div>
+                            <label> Withdrawal Entire Balance : </label><input type="checkbox" value={this.state.WithdrawAll} onChange={this.handleWithdrawAllChange} />
+                        </div>
+                        <p></p>
+
+                        <input type="submit" class="btn btn-outline-dark btn-sm" value="Withdraw" />
+                        <p></p>
+                    </form>
+                </div>
+            </TabPanel>
+
+            </Tabs>
         </div>
       </div>
     );

@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TLJB9GK92qZ7TB9bmLBuHtGv41pUzybmUz";
+const contractAddress = "TRWSoK9ZTN7K44yyu3RdqJmNmUX7LweVsW";
 
 export async function createNewPost(title, content, tags) {
 
