@@ -8,16 +8,11 @@ class Account extends React.Component {
     super(props);
     this.state = {
         DepositValue: 0,
-        WithdrawValue: 0,
-        WithdrawAll: false,
         Username: ""
       };
 
       this.handleDepositChange = this.handleDepositChange.bind(this);
       this.handleDepositSubmit = this.handleDepositSubmit.bind(this);
-
-      this.handleWithdrawChange = this.handleWithdrawChange.bind(this);
-      this.handleWithdrawAllChange = this.handleWithdrawAllChange.bind(this);
       this.handleWithdrawSubmit = this.handleWithdrawSubmit.bind(this);
 
       this.handleUserChange = this.handleUserChange.bind(this);
@@ -35,16 +30,8 @@ class Account extends React.Component {
     event.preventDefault();
   }
 
-  handleWithdrawChange(event) {
-    this.setState({WithdrawValue: event.target.value});
-  }
-
-  handleWithdrawAllChange(event) {
-    this.setState({WithdrawAll: event.target.value});
-  }
-
   handleWithdrawSubmit(event) {
-    withdrawTrx(this.state.WithdrawAll, this.state.WithdrawValue);
+    withdrawTrx(true, 0);
     this.state.WithdrawValue = 0;
     event.preventDefault();
   }
@@ -124,7 +111,7 @@ class Account extends React.Component {
                         </div>
 
                         <p></p>
-                            <input type="submit" class="btn btn-outline-dark btn-sm" value="Deposit" />
+                            <input type="submit" class="btn btn-outline-dark" value="Deposit" />
                         <p></p>
                     </form>
 
@@ -136,18 +123,9 @@ class Account extends React.Component {
                     <h3>Withdraw Trx</h3>
 
                     <form onSubmit={this.handleWithdrawSubmit}>
-                        <label> Withdrawal Amount: </label>
-                        <div>
-                            <input type="number" value={this.state.WithdrawValue} onChange={this.handleWithdrawChange} />
-                        </div>
-                        <p></p>
                         
-                        <div>
-                            <label> Withdrawal Entire Balance : </label><input type="checkbox" value={this.state.WithdrawAll} onChange={this.handleWithdrawAllChange} />
-                        </div>
                         <p></p>
-
-                        <input type="submit" class="btn btn-outline-dark btn-sm" value="Withdraw" />
+                        <input type="submit" class="btn btn-outline-dark" value={ "Withdrawal Your " + (Number(userData['SunBalance'])/1000000).toString() + " Trx"} />
                         <p></p>
                     </form>
                 </div>
