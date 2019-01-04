@@ -1,3 +1,11 @@
+//No Filter is a dApp created for the Tron Accelerator
+//The smart contract enables content creation
+//as well as metric tracking and other logic
+//When coupled with the frontend, it creates an experience similar to a 
+//traditional blog style social website such as medium and reddit
+//Created By Harnick Khera (Github.com/Hephyrius)
+//Repository can be found at (Github.com/Hephyrius/Nofilter)
+
 import Swal from 'sweetalert2'
 
 import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS} from "./parser"
@@ -14,7 +22,7 @@ const tronWebDefault = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TSXkRdMMh6mmA7ngf5JpEtZVgxFviLK4Gv";
+const contractAddress = "TQ2XazuQozurs3YPgGhpDPCjcDt1EnKYm7";
 
 
 function dynamicTronlink(){
