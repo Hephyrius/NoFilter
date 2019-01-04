@@ -37,11 +37,9 @@ class Posts extends Component {
     }
     return (
       <div className="Postss">
-        <div class="container">
-            <div class="row">
+
               {postItems}
-            </div>
-          </div>
+
         </div>
     );
   }

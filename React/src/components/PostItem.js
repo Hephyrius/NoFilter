@@ -31,8 +31,6 @@ class PostItem extends Component {
 
     return (
       <div className="PostItem">
-      <p></p>
-
         <div class="container-fluid">
           <div class="row">
               <div class="col-md-2">
