@@ -50,7 +50,6 @@ class CommentBox extends React.Component {
         <div class="container">
             <div class="row">
             <form onSubmit={this.handleSubmit}>
-            <h3>Leave a Comment</h3>
 
                 <label> </label>
                 <ReactQuill theme="snow"

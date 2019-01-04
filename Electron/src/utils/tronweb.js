@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-import {a2hex, hex2a, Time2a, aTo32bytehex} from "./parser"
+import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS} from "./parser"
 
 const TronWeb = require('tronweb')
 
@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TLJB9GK92qZ7TB9bmLBuHtGv41pUzybmUz";
+const contractAddress = "TLkB7fMzEFeBNBV3AYYRGuZ3UE2ith81Mr";
 
 export async function createNewPost(title, content, tags) {
 
@@ -59,8 +59,8 @@ export async function getPosts() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['author'];
-        address = address.substring(2, address.length);
-        address = tronWeb.address.fromHex(address)
+        //address = address.substring(2, address.length);
+        //address = tronWeb.address.fromHex(address)
 
         //format data so it can be used and stored better
         var post = {
@@ -69,7 +69,8 @@ export async function getPosts() {
             tags: hex2a(events[i]['result']['tags']),
             postid: events[i]['result']['id'],
             author: address,
-            content: hex2a(events[i]['result']['text'])
+            content: hex2a(events[i]['result']['text']),
+            hms: Time2HMS(events[i]['result']['postTimestamp'])
           }
 
         posts = posts.concat(post);
@@ -123,8 +124,8 @@ export async function getComments() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['commenter'];
-        address = address.substring(2, address.length);
-        address = tronWeb.address.fromHex(address)
+        //address = address.substring(2, address.length);
+        //address = tronWeb.address.fromHex(address)
         //format data so it can be used and stored better
         var comment = {
             parentComment: hex2a(events[i]['result']['parentComment']),
@@ -132,7 +133,8 @@ export async function getComments() {
             author: address,
             content: hex2a(events[i]['result']['comment']),
             timestamp: Time2a(events[i]['result']['commentTimestamp']),
-            commentid: events[i]['result']['commentId']
+            commentid: events[i]['result']['commentId'],
+            hms: Time2HMS(events[i]['result']['commentTimestamp'])
           }
 
           comments = comments.concat(comment);
@@ -528,4 +530,43 @@ export async function getUserData() {
     }
 
     localStorage.setItem("User", JSON.stringify(user));
+}
+
+
+export async function getUsers() {
+    const contract = await tronWeb.contract().at(contractAddress);
+    let posts = JSON.parse(localStorage.getItem("Posts"));
+    let comments = JSON.parse(localStorage.getItem("Comments"));
+
+    let unique = []
+
+    for(var i = 0; i<posts.length; i++){
+        var author = posts[i]['author']
+        if(unique.includes(author ) == false) {
+            unique = unique.concat(author)
+        }
+    }
+
+    for(var i = 0; i<comments.length; i++){
+        var author = comments[i]['author']
+        if(unique.includes(author ) == false) {
+            unique = unique.concat(author)
+        }
+    }
+
+    var UserNames = []
+
+    for (var i = 0; i<unique.length; i++){
+        var address = unique[i].substring(2, unique[i].length)
+        let ContractUsername = await contract.getUsername(address).call();
+        let username = hex2a(ContractUsername);
+
+        var user = {
+            HexAddress : unique[i],
+            UserName : username
+        }
+
+        UserNames = UserNames.concat(user)
+    }
+    localStorage.setItem("KnownUsers", JSON.stringify(UserNames));
 }

@@ -31,7 +31,7 @@ class Search extends Component {
                                 </form>
                             </div>
                         </div>
-                    <Posts filterword={this.state.search}/>
+                        <Posts filterword={this.state.search} content={true} tag={true} title={true} />
                 </div>
             </div>
         );

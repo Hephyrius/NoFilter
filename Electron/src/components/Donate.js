@@ -10,7 +10,6 @@ class Donate extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log(this.props.donation)
   }
 
   handleChange(event) {
@@ -28,9 +27,8 @@ class Donate extends React.Component {
     <div className="Donate">
         <div class="container">
             <div class="row">
+
             <form onSubmit={this.handleSubmit}>
-            <strong>Post Earnings: {this.props.donation['TrxDonation']}Trx </strong> 
-            <h3>Donate</h3>
                 <div>
                     <input type="number" value={this.state.TrxValue} onChange={this.handleChange} /> Trx
                 </div>
@@ -39,6 +37,10 @@ class Donate extends React.Component {
                 <p><strong> You currently have a contract balance of {Number(userData['SunBalance'])/1000000}TRX</strong></p>
 
                 <input type="submit" class="btn btn-outline-dark" value="Donate" />
+
+                              <p></p>
+                <strong>Post Has Earned: {this.props.donation['TrxDonation']}Trx </strong> 
+              <p></p>
             </form>
             </div>
         </div>

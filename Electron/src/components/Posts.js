@@ -8,34 +8,38 @@ class Posts extends Component {
     let posts = JSON.parse(localStorage.getItem("Posts"))
     let votes = JSON.parse(localStorage.getItem("PostVotes"))
     let filter = []
-
-    if (this.props.filterword.length > 0){
-      for(var i=0; i<posts.length; i++){
-        if(posts[i]['content'].match(this.props.filterword) || posts[i]['tags'].match(this.props.filterword) || posts[i]['title'].match(this.props.filterword)){
-          filter = filter.concat(posts[i])
+    if(!posts){
+      posts = []
+    } 
+    else {
+      if (this.props.filterword.length > 0){
+        for(var i=0; i<posts.length; i++){
+          if((posts[i]['content'].match(this.props.filterword) && this.props.content) 
+          || (posts[i]['tags'].match(this.props.filterword) && this.props.tag) 
+          || (posts[i]['title'].match(this.props.filterword && this.props.title))){
+            filter = filter.concat(posts[i])
+          }
         }
+        posts = filter
       }
-      posts = filter
-    }
 
-    if(posts.length > 0) {
-        postItems = posts.map(post => {
-            return (
-                <PostItem key={post.title} post={post} votes={votes}/>
-            )
-        } );
+      if(posts.length > 0) {
+          postItems = posts.map(post => {
+              return (
+                  <PostItem key={post.title} post={post} votes={votes}/>
+              )
+          } );
 
-    } else {
+      } else {
 
-      postItems = <DummyItem isPost={true}/>
+        postItems = <DummyItem isPost={true}/>
+      }
     }
     return (
       <div className="Postss">
-        <div class="container">
-            <div class="row">
+
               {postItems}
-            </div>
-          </div>
+
         </div>
     );
   }

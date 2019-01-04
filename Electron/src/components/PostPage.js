@@ -4,6 +4,14 @@ import CommentsList from "./CommentsList";
 import PostVote from "./PostVote";
 import Donate from "./Donate";
 
+
+import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+
 class PostPage extends Component {
 
   render() {
@@ -38,39 +46,85 @@ class PostPage extends Component {
       postid = -1;
     }
 
+    let Users = JSON.parse(localStorage.getItem("KnownUsers"));
+    let username = "anonymous"
+
+    for(var i=0; i<Users.length; i++){
+      if(Users[i]['HexAddress'] == post['author']){
+        username = Users[i]['UserName'];
+      }
+    }
+
     return (
       <div className="PostPage">
-        <div class="container">
-          <div class="row">
 
-              <h1 class="mt-4">{post['title']}</h1>
 
-              <p></p>
-              <div class="container">
-              <p class="lead" align="justify">
-                <div dangerouslySetInnerHTML={{__html: post['content']}} />
-                </p>
+        <ExpansionPanel expanded={true}>
+            <ExpansionPanelSummary >
+              <Typography ><h1>{post['title']}</h1></Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+            <div class="container">
+              <div class="row">
+
+                  <p></p>
+                  <div class="container">
+                  <p class="lead" align="justify">
+                    <div dangerouslySetInnerHTML={{__html: post['content']}} />
+                    </p>
+                  </div>
+                  <div>
+
+                  <Divider variant="middle" />
+
+                  Posted on {post['timestamp']} at {post['hms']} by
+                  <Tooltip title={post['author']} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
+
+                  <Divider variant="middle" />
+
+                  </div>
+
               </div>
+            </div>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
 
-              Posted on {post['timestamp']}  by {post['author']}
+          <ExpansionPanel defaultExpanded={true}>
+            <ExpansionPanelSummary >
+              <Typography ><h3>Vote</h3></Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <PostVote postid={postid} />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
 
-          </div>
-        </div>
-        <p></p>
-        <Donate postid={postid} donation={donation}/>
-        <p></p>
+          <ExpansionPanel defaultExpanded={true}>
+            <ExpansionPanelSummary >
+              <Typography> <h3>Donate</h3> </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+                <Donate postid={postid} donation={donation}/>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
 
-        <h3>Vote</h3>
-        <PostVote postid={postid} />
-        <p></p>
+          <ExpansionPanel defaultExpanded={true}>
+            <ExpansionPanelSummary >
+              <Typography ><h3>Leave Comment</h3></Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <CommentBox postid={postid}/>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
 
-        <CommentBox postid={postid}/>
-        <p></p>
+          <ExpansionPanel defaultExpanded={true}>
+            <ExpansionPanelSummary >
+              <Typography ><h3>Comment Section</h3></Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <CommentsList postid={postid}/>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
 
-        <CommentsList postid={postid}/>
-        
-
-        
       </div>
     );
   }

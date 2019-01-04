@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PostVote from "./PostVote";
+
+import Tooltip from '@material-ui/core/Tooltip';
+import Divider from '@material-ui/core/Divider';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class PostItem extends Component {
@@ -17,10 +20,17 @@ class PostItem extends Component {
       }
     }
 
+    let Users = JSON.parse(localStorage.getItem("KnownUsers"));
+    let username = "anonymous"
+
+    for(var i=0; i<Users.length; i++){
+      if(Users[i]['HexAddress'] == this.props.post.author){
+        username = Users[i]['UserName'];
+      }
+    }
+
     return (
       <div className="PostItem">
-      <p></p>
-
         <div class="container-fluid">
           <div class="row">
               <div class="col-md-2">
@@ -30,16 +40,17 @@ class PostItem extends Component {
               <div class="col-md-8">
               <p></p>
                 <div className="title-area">
-                    <span className="title"><Link to={"post=" + this.props.post.postid}> {this.props.post.title}</Link></span>
-                    
+                    <span className="title"><Link to={"post=" + this.props.post.postid}> {this.props.post.title}</Link></span>  
                 </div>
 
                 <div className="meta-area">
+                <Divider variant="middle" />
 
                   <span className="time">
-                    Submitted {this.props.post.timestamp} by
-                    <strong> {this.props.post.author}</strong>
+                    Submitted at {this.props.post.hms} on {this.props.post.timestamp} by
+                    <Tooltip title={this.props.post.author} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
                   </span>
+                  <Divider variant="middle" />
                 </div>
               </div>
           </div>
