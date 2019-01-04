@@ -31,7 +31,7 @@ class CommentItem extends Component {
                 <div className="meta-area">
                   <span className="time">
                     Submitted {this.props.comment.hms} {this.props.comment.timestamp} by
-                    <Tooltip title={this.props.comment.author} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
+                    <Tooltip title={" "+ this.props.comment.author + " " + this.props.comment.tronaddress} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
                   </span>
                   <Divider variant="middle" />
                 </div>

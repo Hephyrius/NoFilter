@@ -48,7 +48,7 @@ class PostItem extends Component {
 
                   <span className="time">
                     Submitted at {this.props.post.hms} on {this.props.post.timestamp} by
-                    <Tooltip title={this.props.post.author} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
+                    <Tooltip title={" " +this.props.post.author+" "+this.props.post.tronaddress} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
                   </span>
                   <Divider variant="middle" />
                 </div>

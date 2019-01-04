@@ -70,8 +70,8 @@ export async function getPosts() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['author'];
-        //address = address.substring(2, address.length);
-        //address = tronWeb.address.fromHex(address)
+        let tronaddress = address.substring(2, address.length);
+        tronaddress = tronWeb.address.fromHex(tronaddress)
 
         //format data so it can be used and stored better
         var post = {
@@ -80,6 +80,7 @@ export async function getPosts() {
             tags: hex2a(events[i]['result']['tags']),
             postid: events[i]['result']['id'],
             author: address,
+            tronaddress: tronaddress,
             content: hex2a(events[i]['result']['text']),
             hms: Time2HMS(events[i]['result']['postTimestamp'])
           }
@@ -136,13 +137,14 @@ export async function getComments() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['commenter'];
-        //address = address.substring(2, address.length);
-        //address = tronWeb.address.fromHex(address)
-        //format data so it can be used and stored better
+        let tronaddress = address.substring(2, address.length);
+        tronaddress = tronWeb.fromHex(tronaddress)
+
         var comment = {
             parentComment: hex2a(events[i]['result']['parentComment']),
             postid: events[i]['result']['postId'],
             author: address,
+            tronaddress: tronaddress,
             content: hex2a(events[i]['result']['comment']),
             timestamp: Time2a(events[i]['result']['commentTimestamp']),
             commentid: events[i]['result']['commentId'],
@@ -542,7 +544,7 @@ export async function getUserData() {
 
     user = {
         TronAddress : add,
-        HexAddress : hexAdd,
+        HexAddress : "0x" + hexAdd,
         SunBalance : balance,
         UserName : username
     }
@@ -575,11 +577,19 @@ export async function getUsers() {
 
     var UserNames = []
 
+    let NoUsername = await contract.getUsername("0000000000000000000000000000000000000000").call();
+    let nousernameascii = hex2a(NoUsername);
+
     for (var i = 0; i<unique.length; i++){
         var address = unique[i].substring(2, unique[i].length)
         let ContractUsername = await contract.getUsername(address).call();
         let username = hex2a(ContractUsername);
 
+        if(username == nousernameascii){
+            username = "anonymous"
+        }
+        
+        
         var user = {
             HexAddress : unique[i],
             UserName : username
