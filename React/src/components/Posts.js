@@ -14,7 +14,9 @@ class Posts extends Component {
     else {
       if (this.props.filterword.length > 0){
         for(var i=0; i<posts.length; i++){
-          if(posts[i]['content'].match(this.props.filterword) || posts[i]['tags'].match(this.props.filterword) || posts[i]['title'].match(this.props.filterword)){
+          if((posts[i]['content'].match(this.props.filterword) && this.props.content) 
+          || (posts[i]['tags'].match(this.props.filterword) && this.props.tag) 
+          || (posts[i]['title'].match(this.props.filterword && this.props.title))){
             filter = filter.concat(posts[i])
           }
         }

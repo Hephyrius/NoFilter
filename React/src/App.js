@@ -42,6 +42,8 @@ class App extends Component {
 
           <Route path="/post=:id" component={PostP}/>
 
+          <Route path="/tag=:term" component={TagP}/>
+
           <Route path="/search" component={SearchP}/>
 
           <Route path = "/account" component ={AccountP} />
@@ -59,6 +61,7 @@ class App extends Component {
 const Home = () => <Posts filterword={""}/>;
 const newpost = () => <Form /> ;
 const PostP = ({ match }) => ( <PostPage postid={match.params.id} />);
+const TagP = ({ match }) => ( <Posts filterword={match.params.term} content={false} tag={true} title={false} />);
 const AboutP = ({ match }) => ( <About />);
 const SearchP = ({ match }) => ( <Search />);
 const AccountP = ({ match }) => ( <Account />);
