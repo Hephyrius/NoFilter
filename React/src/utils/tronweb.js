@@ -1,20 +1,39 @@
+//No Filter is a dApp created for the Tron Accelerator
+//The smart contract enables content creation
+//as well as metric tracking and other logic
+//When coupled with the frontend, it creates an experience similar to a 
+//traditional blog style social website such as medium and reddit
+//Created By Harnick Khera (Github.com/Hephyrius)
+//Repository can be found at (Github.com/Hephyrius/Nofilter)
+
 import Swal from 'sweetalert2'
 
 import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS} from "./parser"
 
 const TronWeb = require('tronweb')
-
+var tronWeb;
 
 //connecting tronweb to the local docker node
-const tronWeb = new TronWeb(
-    "http://127.0.0.1:9090",
-    "http://127.0.0.1:9090",
-    "http://127.0.0.1:9090",
-    'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
+const tronWebDefault = new TronWeb(
+    "https://api.shasta.trongrid.io",
+    "https://api.shasta.trongrid.io",
+    "https://api.shasta.trongrid.io",
+    'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0', //default testnet pkey
 )
 
 //address of the contract
-const contractAddress = "TLkB7fMzEFeBNBV3AYYRGuZ3UE2ith81Mr";
+const contractAddress = "TUtYaWZVTWWfR2KGXfzDV9hNMG7m6LbSMe";
+
+
+function dynamicTronlink(){
+    var tron = tronWebDefault
+
+    if (!!window.tronWeb){
+        tron = window.tronWeb;
+    }
+
+    return tron;
+}
 
 export async function createNewPost(title, content, tags) {
 
@@ -24,7 +43,7 @@ export async function createNewPost(title, content, tags) {
         });
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert the data to an appropriate format for the blockchain to handle
     let byteTitle = a2hex(title);
@@ -51,7 +70,7 @@ export async function createNewPost(title, content, tags) {
 
 //get data from contract events and convert it into a readable/useable state
 export async function getPosts() {
-
+    tronWeb = dynamicTronlink()
     //load the contract 
     const events = await tronWeb.getEventResult(contractAddress, 0, "PostContent", 0,  200, 1);
 
@@ -59,8 +78,8 @@ export async function getPosts() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['author'];
-        //address = address.substring(2, address.length);
-        //address = tronWeb.address.fromHex(address)
+        let tronaddress = address.substring(2, address.length);
+        tronaddress = tronWeb.address.fromHex(tronaddress)
 
         //format data so it can be used and stored better
         var post = {
@@ -69,6 +88,7 @@ export async function getPosts() {
             tags: hex2a(events[i]['result']['tags']),
             postid: events[i]['result']['id'],
             author: address,
+            tronaddress: tronaddress,
             content: hex2a(events[i]['result']['text']),
             hms: Time2HMS(events[i]['result']['postTimestamp'])
           }
@@ -89,7 +109,7 @@ export async function createNewComment(commentText, postid,  parentComment) {
         });
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert the data to an appropriate format for the blockchain to handle
     //let byteTitle = a2hex(title);
@@ -116,6 +136,7 @@ export async function createNewComment(commentText, postid,  parentComment) {
 
 //get data from contract events and convert it into a readable/useable state
 export async function getComments() {
+    tronWeb = dynamicTronlink()
 
     //load the contract 
     const events = await tronWeb.getEventResult(contractAddress, 0, "CommentCreated", 0,  200, 1);
@@ -124,13 +145,14 @@ export async function getComments() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['commenter'];
-        //address = address.substring(2, address.length);
-        //address = tronWeb.address.fromHex(address)
-        //format data so it can be used and stored better
+        let tronaddress = address.substring(2, address.length);
+        tronaddress = tronWeb.address.fromHex(tronaddress)
+
         var comment = {
             parentComment: hex2a(events[i]['result']['parentComment']),
             postid: events[i]['result']['postId'],
             author: address,
+            tronaddress: tronaddress,
             content: hex2a(events[i]['result']['comment']),
             timestamp: Time2a(events[i]['result']['commentTimestamp']),
             commentid: events[i]['result']['commentId'],
@@ -147,6 +169,9 @@ export async function getComments() {
 
 //get the vote counters from the blockchain
 export async function getVoteCounters() {
+
+    tronWeb = dynamicTronlink()
+
     const contract = await tronWeb.contract().at(contractAddress);
 
     let posts = JSON.parse(localStorage.getItem("Posts"));
@@ -185,7 +210,7 @@ export async function VoteOnPost(postid, votetype) {
 
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert the postid into a useable form
     let id = "0x" + Number(postid).toString(16);
@@ -240,6 +265,7 @@ export async function VoteOnPost(postid, votetype) {
 
 //get the vote counters from the blockchain
 export async function getCommentVoteCounters() {
+    tronWeb = dynamicTronlink()
     const contract = await tronWeb.contract().at(contractAddress);
 
     let comments = JSON.parse(localStorage.getItem("Comments"));
@@ -280,7 +306,7 @@ export async function getCommentVoteCounters() {
 export async function VoteOnComment(postid, commentid, votetype) {
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert the postid into a useable form
     let id = "0x" + Number(postid).toString(16);
@@ -336,7 +362,7 @@ export async function VoteOnComment(postid, commentid, votetype) {
 export async function DepositTrx(trxAmount) {
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert tron amount into a sun value as sun is used as the call value
     let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
@@ -366,7 +392,7 @@ export async function DepositTrx(trxAmount) {
 export async function withdrawTrx(takeAll, trxAmount) {
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert the postid into a useable form
     let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
@@ -407,7 +433,7 @@ export async function withdrawTrx(takeAll, trxAmount) {
 export async function DonateTrx(postid, trxAmount) {
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert the postid into a useable form
     let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
@@ -439,6 +465,7 @@ export async function DonateTrx(postid, trxAmount) {
 
 //get the vote counters from the blockchain
 export async function getDonations() {
+    tronWeb = dynamicTronlink()
     const contract = await tronWeb.contract().at(contractAddress);
 
     let posts = JSON.parse(localStorage.getItem("Posts"));
@@ -474,7 +501,7 @@ export async function getDonations() {
 export async function ChangeUsername(UsernameString) {
 
     //load the contract 
-    const contract = await tronWeb.contract().at(contractAddress);
+    const contract = await window.tronWeb.contract().at(contractAddress);
 
     //convert tron amount into a sun value as sun is used as the call value
     let user = aTo32bytehex(UsernameString)
@@ -503,6 +530,7 @@ export async function ChangeUsername(UsernameString) {
 
 //get the current users data
 export async function getUserData() {
+    tronWeb = dynamicTronlink()
     const contract = await tronWeb.contract().at(contractAddress);
 
     let user = JSON.parse(localStorage.getItem("User"));
@@ -524,7 +552,7 @@ export async function getUserData() {
 
     user = {
         TronAddress : add,
-        HexAddress : hexAdd,
+        HexAddress : "0x" + hexAdd,
         SunBalance : balance,
         UserName : username
     }
@@ -534,33 +562,47 @@ export async function getUserData() {
 
 
 export async function getUsers() {
+    tronWeb = dynamicTronlink()
     const contract = await tronWeb.contract().at(contractAddress);
     let posts = JSON.parse(localStorage.getItem("Posts"));
     let comments = JSON.parse(localStorage.getItem("Comments"));
 
     let unique = []
 
-    for(var i = 0; i<posts.length; i++){
-        var author = posts[i]['author']
-        if(unique.includes(author ) == false) {
-            unique = unique.concat(author)
+    if(posts){
+        for(var i = 0; i<posts.length; i++){
+            var author = posts[i]['author']
+            if(unique.includes(author ) == false) {
+                unique = unique.concat(author)
+            }
         }
     }
 
-    for(var i = 0; i<comments.length; i++){
-        var author = comments[i]['author']
-        if(unique.includes(author ) == false) {
-            unique = unique.concat(author)
+    if(comments){
+
+        for(var i = 0; i<comments.length; i++){
+            var author = comments[i]['author']
+            if(unique.includes(author ) == false) {
+                unique = unique.concat(author)
+            }
         }
     }
 
     var UserNames = []
+
+    let NoUsername = await contract.getUsername("0000000000000000000000000000000000000000").call();
+    let nousernameascii = hex2a(NoUsername);
 
     for (var i = 0; i<unique.length; i++){
         var address = unique[i].substring(2, unique[i].length)
         let ContractUsername = await contract.getUsername(address).call();
         let username = hex2a(ContractUsername);
 
+        if(username == nousernameascii){
+            username = "anonymous"
+        }
+        
+        
         var user = {
             HexAddress : unique[i],
             UserName : username

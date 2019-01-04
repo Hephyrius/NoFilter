@@ -1,3 +1,11 @@
+//No Filter is a dApp created for the Tron Accelerator
+//The smart contract enables content creation
+//as well as metric tracking and other logic
+//When coupled with the frontend, it creates an experience similar to a 
+//traditional blog style social website such as medium and reddit
+//Created By Harnick Khera (Github.com/Hephyrius)
+//Repository can be found at (Github.com/Hephyrius/Nofilter)
+
 import React, { Component } from 'react';
 import CommentBox from "./CommentBox";
 import CommentsList from "./CommentsList";
@@ -78,7 +86,7 @@ class PostPage extends Component {
                   <Divider variant="middle" />
 
                   Posted on {post['timestamp']} at {post['hms']} by
-                  <Tooltip title={post['author']} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
+                  <Tooltip title={" " +post['author']+" "+post['tronaddress']} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
 
                   <Divider variant="middle" />
 

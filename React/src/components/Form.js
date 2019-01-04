@@ -1,3 +1,11 @@
+//No Filter is a dApp created for the Tron Accelerator
+//The smart contract enables content creation
+//as well as metric tracking and other logic
+//When coupled with the frontend, it creates an experience similar to a 
+//traditional blog style social website such as medium and reddit
+//Created By Harnick Khera (Github.com/Hephyrius)
+//Repository can be found at (Github.com/Hephyrius/Nofilter)
+
 import React, { Component } from 'react';
 import {createNewPost} from "../utils/tronweb";
 
@@ -68,7 +76,7 @@ class Form extends React.Component {
               <h3>Create New Post</h3>
                 <label> Title: </label>
                   <div>
-                    <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
+                    <input type="text" maxLength={120} value={this.state.title} onChange={this.handleTitleChange} />
                   </div>
                 <p> </p>
 
@@ -85,7 +93,7 @@ class Form extends React.Component {
                 
                 <label> Tags: </label>
                   <div>
-                    <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
+                    <input type="text" maxLength={50} value={this.state.tag} onChange={this.handleTagChange} />
                   </div>
                 <p> </p>
 
@@ -93,6 +101,16 @@ class Form extends React.Component {
               </form>
             </div>
           </div>
+          <div class="container">
+            <div>
+              <p></p>
+              <h3>Preview </h3>
+              <p></p>
+            </div>
+            
+            
+            <div dangerouslySetInnerHTML={{__html: this.state.content}} />
+            </div>
         </div>
     );
   }
