@@ -9,7 +9,10 @@ import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import Search from "./components/Search";
 import Account from "./components/Account";
+import 'jquery/dist/jquery.js'
 import "./bootstrap.css";
+import 'bootstrap/dist/js/bootstrap.js'
+
 import {getPosts, getComments, getVoteCounters, getCommentVoteCounters, getUserData, getDonations, getUsers} from "./utils/tronweb";
 
 class App extends Component {
