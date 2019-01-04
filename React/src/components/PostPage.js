@@ -52,7 +52,7 @@ class PostPage extends Component {
                 </p>
               </div>
 
-              Posted on {post['timestamp']}  by {post['author']}
+              Posted on {post['timestamp']} at {post['hms']} by {post['author']}
 
           </div>
         </div>

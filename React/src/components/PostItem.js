@@ -37,7 +37,7 @@ class PostItem extends Component {
                 <div className="meta-area">
 
                   <span className="time">
-                    Submitted {this.props.post.timestamp} by
+                    Submitted at {this.props.post.hms} on {this.props.post.timestamp} by
                     <strong> {this.props.post.author}</strong>
                   </span>
                 </div>

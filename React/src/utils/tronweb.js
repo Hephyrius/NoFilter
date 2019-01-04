@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-import {a2hex, hex2a, Time2a, aTo32bytehex} from "./parser"
+import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS} from "./parser"
 
 const TronWeb = require('tronweb')
 
@@ -14,7 +14,7 @@ const tronWeb = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TRWSoK9ZTN7K44yyu3RdqJmNmUX7LweVsW";
+const contractAddress = "TLkB7fMzEFeBNBV3AYYRGuZ3UE2ith81Mr";
 
 export async function createNewPost(title, content, tags) {
 
@@ -69,7 +69,8 @@ export async function getPosts() {
             tags: hex2a(events[i]['result']['tags']),
             postid: events[i]['result']['id'],
             author: address,
-            content: hex2a(events[i]['result']['text'])
+            content: hex2a(events[i]['result']['text']),
+            hms: Time2HMS(events[i]['result']['postTimestamp'])
           }
 
         posts = posts.concat(post);
@@ -132,7 +133,8 @@ export async function getComments() {
             author: address,
             content: hex2a(events[i]['result']['comment']),
             timestamp: Time2a(events[i]['result']['commentTimestamp']),
-            commentid: events[i]['result']['commentId']
+            commentid: events[i]['result']['commentId'],
+            hms: Time2HMS(events[i]['result']['commentTimestamp'])
           }
 
           comments = comments.concat(comment);

@@ -19,7 +19,7 @@ class CommentItem extends Component {
                 </div>
                 <div className="meta-area">
                   <span className="time">
-                    Submitted {this.props.comment.timestamp} by
+                    Submitted {this.props.comment.hms} {this.props.comment.timestamp} by
                     <strong> {this.props.comment.author}</strong>
                   </span>
                   <p></p>
