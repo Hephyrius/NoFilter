@@ -138,7 +138,7 @@ export async function getComments() {
 
         let address = events[i]['result']['commenter'];
         let tronaddress = address.substring(2, address.length);
-        tronaddress = tronWeb.fromHex(tronaddress)
+        tronaddress = tronWeb.address.fromHex(tronaddress)
 
         var comment = {
             parentComment: hex2a(events[i]['result']['parentComment']),
