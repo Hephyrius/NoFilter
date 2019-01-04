@@ -17,6 +17,15 @@ class PostItem extends Component {
       }
     }
 
+    let Users = JSON.parse(localStorage.getItem("KnownUsers"));
+    let username = "anonymous"
+
+    for(var i=0; i<Users.length; i++){
+      if(Users[i]['HexAddress'] == this.props.post.author){
+        username = Users[i]['UserName'];
+      }
+    }
+
     return (
       <div className="PostItem">
       <p></p>
@@ -38,7 +47,7 @@ class PostItem extends Component {
 
                   <span className="time">
                     Submitted at {this.props.post.hms} on {this.props.post.timestamp} by
-                    <strong> {this.props.post.author}</strong>
+                    <strong> {username}[{this.props.post.author}]</strong>
                   </span>
                 </div>
               </div>

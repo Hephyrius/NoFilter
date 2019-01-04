@@ -38,6 +38,15 @@ class PostPage extends Component {
       postid = -1;
     }
 
+    let Users = JSON.parse(localStorage.getItem("KnownUsers"));
+    let username = "anonymous"
+
+    for(var i=0; i<Users.length; i++){
+      if(Users[i]['HexAddress'] == post['author']){
+        username = Users[i]['UserName'];
+      }
+    }
+
     return (
       <div className="PostPage">
         <div class="container">
@@ -52,7 +61,7 @@ class PostPage extends Component {
                 </p>
               </div>
 
-              Posted on {post['timestamp']} at {post['hms']} by {post['author']}
+              Posted on {post['timestamp']} at {post['hms']} by {username} [{post['author']}]
 
           </div>
         </div>

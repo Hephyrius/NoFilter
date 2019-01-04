@@ -4,7 +4,14 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class CommentItem extends Component {
   render() {
-      
+    let Users = JSON.parse(localStorage.getItem("KnownUsers"));
+    let username = "anonymous"
+
+    for(var i=0; i<Users.length; i++){
+      if(Users[i]['HexAddress'] == this.props.comment.author){
+        username = Users[i]['UserName'];
+      }
+    }
     return (
       <div className="CommentItem">
         <div class="container-fluid">
@@ -20,7 +27,7 @@ class CommentItem extends Component {
                 <div className="meta-area">
                   <span className="time">
                     Submitted {this.props.comment.hms} {this.props.comment.timestamp} by
-                    <strong> {this.props.comment.author}</strong>
+                    <strong> {username}[{this.props.comment.author}]</strong>
                   </span>
                   <p></p>
                 </div>

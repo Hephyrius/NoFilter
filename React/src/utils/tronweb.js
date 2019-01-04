@@ -542,13 +542,10 @@ export async function getUsers() {
 
     for(var i = 0; i<posts.length; i++){
         var author = posts[i]['author']
-        console.log(posts[i]['author'])
         if(unique.includes(author ) == false) {
             unique = unique.concat(author)
         }
     }
-
-    console.log(unique)
 
     for(var i = 0; i<comments.length; i++){
         var author = comments[i]['author']
