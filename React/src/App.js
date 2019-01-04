@@ -10,7 +10,7 @@ import SiteFooter from "./components/SiteFooter";
 import Search from "./components/Search";
 import Account from "./components/Account";
 import "./bootstrap.css";
-import {getPosts, getComments, getVoteCounters, getCommentVoteCounters, getUserData, getDonations} from "./utils/tronweb";
+import {getPosts, getComments, getVoteCounters, getCommentVoteCounters, getUserData, getDonations, getUsers} from "./utils/tronweb";
 
 class App extends Component {
   
@@ -25,6 +25,7 @@ class App extends Component {
     getCommentVoteCounters()
     getUserData()
     getDonations()
+    getUsers()
   }
 
   render() {

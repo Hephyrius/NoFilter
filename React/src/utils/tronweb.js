@@ -59,8 +59,8 @@ export async function getPosts() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['author'];
-        address = address.substring(2, address.length);
-        address = tronWeb.address.fromHex(address)
+        //address = address.substring(2, address.length);
+        //address = tronWeb.address.fromHex(address)
 
         //format data so it can be used and stored better
         var post = {
@@ -124,8 +124,8 @@ export async function getComments() {
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['commenter'];
-        address = address.substring(2, address.length);
-        address = tronWeb.address.fromHex(address)
+        //address = address.substring(2, address.length);
+        //address = tronWeb.address.fromHex(address)
         //format data so it can be used and stored better
         var comment = {
             parentComment: hex2a(events[i]['result']['parentComment']),
@@ -530,4 +530,46 @@ export async function getUserData() {
     }
 
     localStorage.setItem("User", JSON.stringify(user));
+}
+
+
+export async function getUsers() {
+    const contract = await tronWeb.contract().at(contractAddress);
+    let posts = JSON.parse(localStorage.getItem("Posts"));
+    let comments = JSON.parse(localStorage.getItem("Comments"));
+
+    let unique = []
+
+    for(var i = 0; i<posts.length; i++){
+        var author = posts[i]['author']
+        console.log(posts[i]['author'])
+        if(unique.includes(author ) == false) {
+            unique = unique.concat(author)
+        }
+    }
+
+    console.log(unique)
+
+    for(var i = 0; i<comments.length; i++){
+        var author = comments[i]['author']
+        if(unique.includes(author ) == false) {
+            unique = unique.concat(author)
+        }
+    }
+
+    var UserNames = []
+
+    for (var i = 0; i<unique.length; i++){
+        var address = unique[i].substring(2, unique[i].length)
+        let ContractUsername = await contract.getUsername(address).call();
+        let username = hex2a(ContractUsername);
+
+        var user = {
+            HexAddress : unique[i],
+            UserName : username
+        }
+
+        UserNames = UserNames.concat(user)
+    }
+    localStorage.setItem("KnownUsers", JSON.stringify(UserNames));
 }
