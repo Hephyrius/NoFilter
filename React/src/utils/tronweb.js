@@ -22,7 +22,7 @@ const tronWebDefault = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TQ2XazuQozurs3YPgGhpDPCjcDt1EnKYm7";
+const contractAddress = "TUtYaWZVTWWfR2KGXfzDV9hNMG7m6LbSMe";
 
 
 function dynamicTronlink(){
@@ -569,17 +569,22 @@ export async function getUsers() {
 
     let unique = []
 
-    for(var i = 0; i<posts.length; i++){
-        var author = posts[i]['author']
-        if(unique.includes(author ) == false) {
-            unique = unique.concat(author)
+    if(posts){
+        for(var i = 0; i<posts.length; i++){
+            var author = posts[i]['author']
+            if(unique.includes(author ) == false) {
+                unique = unique.concat(author)
+            }
         }
     }
 
-    for(var i = 0; i<comments.length; i++){
-        var author = comments[i]['author']
-        if(unique.includes(author ) == false) {
-            unique = unique.concat(author)
+    if(comments){
+
+        for(var i = 0; i<comments.length; i++){
+            var author = comments[i]['author']
+            if(unique.includes(author ) == false) {
+                unique = unique.concat(author)
+            }
         }
     }
 
