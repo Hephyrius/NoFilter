@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import CommentVote from "./CommentVote";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Tooltip from '@material-ui/core/Tooltip';
+import Divider from '@material-ui/core/Divider';
+
+import CommentVote from "./CommentVote";
 
 class CommentItem extends Component {
   render() {
@@ -24,16 +26,18 @@ class CommentItem extends Component {
               <div className="content">
                 <div className="title-area">
                   <div dangerouslySetInnerHTML={{__html: this.props.comment.content}} />
+                  <Divider variant="middle" />
                 </div>
                 <div className="meta-area">
                   <span className="time">
                     Submitted {this.props.comment.hms} {this.props.comment.timestamp} by
-                    <Tooltip title={this.props.comment.author}><strong> {username}</strong></Tooltip>
+                    <Tooltip title={this.props.comment.author} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
                   </span>
-                  <p></p>
+                  <Divider variant="middle" />
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>

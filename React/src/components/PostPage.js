@@ -3,6 +3,7 @@ import CommentBox from "./CommentBox";
 import CommentsList from "./CommentsList";
 import PostVote from "./PostVote";
 import Donate from "./Donate";
+import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
 
 class PostPage extends Component {
@@ -61,13 +62,21 @@ class PostPage extends Component {
                 <div dangerouslySetInnerHTML={{__html: post['content']}} />
                 </p>
               </div>
+              <div>
+
+              <Divider variant="middle" />
 
               Posted on {post['timestamp']} at {post['hms']} by
-              <Tooltip title={post['author']}><strong> {username}</strong></Tooltip>
+              <Tooltip title={post['author']} leaveDelay={400} interactive={true}><strong> {username}</strong></Tooltip>
+
+              <Divider variant="middle" />
+
+              </div>
 
           </div>
         </div>
         <p></p>
+        
         <Donate postid={postid} donation={donation}/>
         <p></p>
 
