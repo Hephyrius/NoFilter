@@ -27,13 +27,10 @@ class CommentsList extends Component {
     
     return (
       <div className="CommentsList">
-      <h3>Comment Section </h3>
         <div class="container">
-            
-            
+
               {commentItems}
               
-            
           </div>
         </div>
     );
