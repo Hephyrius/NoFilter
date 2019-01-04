@@ -68,7 +68,7 @@ class Form extends React.Component {
               <h3>Create New Post</h3>
                 <label> Title: </label>
                   <div>
-                    <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
+                    <input type="text" maxLength={120} value={this.state.title} onChange={this.handleTitleChange} />
                   </div>
                 <p> </p>
 
@@ -85,7 +85,7 @@ class Form extends React.Component {
                 
                 <label> Tags: </label>
                   <div>
-                    <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
+                    <input type="text" maxLength={50} value={this.state.tag} onChange={this.handleTagChange} />
                   </div>
                 <p> </p>
 
@@ -96,7 +96,7 @@ class Form extends React.Component {
           <div class="container">
             <div>
               <p></p>
-              <h3> Post Preview </h3>
+              <h3>Preview </h3>
               <p></p>
             </div>
             
