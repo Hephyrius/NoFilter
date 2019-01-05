@@ -22,7 +22,7 @@ const tronWebDefault = new TronWeb(
 )
 
 //address of the contract
-const contractAddress = "TUtYaWZVTWWfR2KGXfzDV9hNMG7m6LbSMe";
+const contractAddress = "TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY";
 
 
 function dynamicTronlink(){
