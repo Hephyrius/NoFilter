@@ -1,7 +1,9 @@
 # NoFilter tron dApp (aka !Filter) 
 
 ## MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
-## NOTE The first time you load the app you must refresh atleast once for the events populated from the TVM to be visible by the app. The Latest content is grabbed by nofilter during the intitial startup/load of the dApp
+
+NOTE: The first time you load the app you must refresh atleast once for the events populated from the TVM to be visible by the app. The Latest content is grabbed by nofilter during the intitial startup/load of the dApp
+
 ## dApp: [Live Web dApp Link](http://loopexplorer.io:8080/)
 ## Made for the Tron Accelerator Hackathon
 ## Creator - Harnick Khera
