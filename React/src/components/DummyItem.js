@@ -18,7 +18,7 @@ class DummyItem extends Component {
       <div className="DummyItem">
         <div class="container">
             <div class="row">
-              There are no {type}'s to display. Be the first!
+              There are no {type}'s to display. Try refreshing the page to load events from the Tron Virtual Machine.
             </div>
           </div>
         </div>
