@@ -1,5 +1,5 @@
 # NoFilter tron dApp (aka !Filter) 
-
+# MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
 [VIDEO]
 
 ## What is NoFilter
@@ -10,9 +10,6 @@ The dApp essentially uses tron nodes as a server, and tron as a database, whilst
 ## Why is it needed
 
 Being Censorship Resistant is a very important concept for the modern internet, which is under constant assault by government censorship and manipulation by shadowy organisations and private interests. Another area where this concept is important is in the realm of content policing, modern social platforms often alienate fringe communities with broad rules that can often push users to darker platforms. This is evident in many cases, with the recent tumblr blanket ban on female nuditity being once such case.  Another need for this dApp is the case of data harvesting. The dApp only records bare bone facts about a user to the blockchain and does not track users in any form. This is appealing in the post camebridge-analytica social domain.
-
-## MainNet Address - TO BE DEPLOYED 
-## Shasta TestNet Address -  
 
 # Tech Stack and Dependencies
 
