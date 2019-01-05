@@ -15,14 +15,14 @@ var tronWeb;
 
 //connecting tronweb to the local docker node
 const tronWebDefault = new TronWeb(
-    "https://api.shasta.trongrid.io",
-    "https://api.shasta.trongrid.io",
-    "https://api.shasta.trongrid.io",
+    "https://api.trongrid.io",
+    "https://api.trongrid.io",
+    "https://api.trongrid.io",
     'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0', //default testnet pkey
 )
 
 //address of the contract
-const contractAddress = "TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY";
+const contractAddress = "TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP";
 
 
 function dynamicTronlink(){
