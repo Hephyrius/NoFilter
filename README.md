@@ -1,5 +1,6 @@
 # NoFilter tron dApp (aka !Filter) 
-# MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
+## MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
+## Made for the Tron Accelerator Hackathon
 [VIDEO]
 
 ## What is NoFilter
