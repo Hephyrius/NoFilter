@@ -85,6 +85,6 @@ and then we can deploy on our server using the following command with the compil
 pm2 serve build
 ```
 
-this deploys the frontend to port 5000
+this deploys the frontend to port 8080
 
 
