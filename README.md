@@ -31,9 +31,16 @@ yarn
 ### Deploying the smart contract
 
 with /solidity/ as the current directory first compile all contracts by using 
-``` tronbox compile --compile all```
+
+``` 
+tronbox compile --compile all
+```
+
 followed by deploying to the blockchain via:
-``` tronbox migrate --reset```
+
+``` 
+tronbox migrate --reset
+```
 
 ### Frontend 
 
@@ -42,12 +49,17 @@ this section assumes /react/ is the current directory
 #### Development mode
 
 You can launch nofilter in react development mode by running
-```yarn start```
 
+```
+yarn start
+```
 
 #### compiling
 
 the frontend can be compiled using 
-```yarn dev```
+
+```
+yarn dev
+```
 
 
