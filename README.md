@@ -56,12 +56,28 @@ You can launch nofilter in react development mode by running
 yarn start
 ```
 
-#### compiling
+#### Compiling
 
 the frontend can be compiled using 
 
 ```
 yarn dev
 ```
+
+#### Hosting
+
+We can host the compiled files using pm2 and serve (
+```
+npm install -i -g pm2
+npm install -i -g serve
+```
+
+and then we can deploy on our server using the following command with the compiled files in the same current directory
+
+```
+pm2 serve build
+```
+
+this deploys the frontend to port 5000
 
 
