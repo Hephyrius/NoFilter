@@ -19,30 +19,24 @@ class About extends React.Component {
         <div class="container">
             <div class="row">
             <form onSubmit={this.handleSubmit}>
-            <h3>About !Filter</h3>
                 <div>
+
                 <p align="justify">
-                NoFilter is a dApp media platform. The platform allows users to share content with other users, akin to platforms such as medium or reddit. 
-                It leverages the TronVM event system as a means of storing content in an immutable fashion. The platform allows users to reward the content 
-                they like with donations (in trx) and gilding (with the native platform token). The dApp also makes use of Tron SmartContracts to keep 
-                track of statistics such as Votes and Donations. The fee model of the dApp is that, a small portion of gildings and donations are psythoned 
-                off into a development fund which can support future upgrades and maintenence of the dApp.
+                <h4> NoFilter tron dApp (aka !Filter) </h4> 
+                <p><strong> MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP</strong> </p>
+                <p><strong> Made for the Tron Accelerator Hackathon</strong> </p>
+                <p><strong> Creator - Harnick Khera (Hephyrius)</strong> </p>
                 </p>
 
                 <p align="justify">
-                The dApp comes in two flavours, Online and Web3. 
+                <h4>What is NoFilter</h4>
+                NoFilter is a dApp media platform. The platform allows users to share content with other users, akin to platforms such as medium or reddit. It leverages the TronVM event system as a means of storing content in an immutable fashion. The platform allows users to reward the content they like with donations (in trx). The dApp also makes use of Tron SmartContracts to keep track of statistics such as Votes and Donations. There is no fee model for this dApp, other than the Gas cost for functions. it is freely useable in it current form. 
+                The dApp essentially uses tron nodes as a server, and tron as a database, whilst the frontend acts as the client. The is dApp allows the user to tap directly into a TVM fullhost/api of their choice (via tronLink settings). Due to the fact that no data is stored offchain it is near impossible to censor.
                 </p>
 
                 <p align="justify">
-                The Web3 version is the unadulterated version of the dApp. This version is a desktop (electon) app that allows the user to tap directly 
-                into a TVM fullhost/api of their choice. The Web3 flavour uses the events system and smart contract as a database, whilst also saving 
-                content to the local machine, when needed/required. Due to the fact that there is no intermediatary, this flavour is entirely uncensored.
-                </p>
-
-                <p align="justify">
-                The online version of the dapp uses TronLink & trongrid apis in order to interact with the smart contract. As well as a server and DB that 
-                stores the events and smart contract data so that it can be accessed easily, without overwhelming the trongrid api platform. This version 
-                of the dApp may lead to censorship due to the database/server that is between the dApp and Blockchain.
+                <h4>Why is it needed</h4>
+                Being Censorship Resistant is a very important concept for the modern internet, which is under constant assault by government censorship and manipulation by shadowy organisations and private interests. Another area where this concept is important is in the realm of content policing, modern social platforms often alienate fringe communities with broad rules that can often push users to darker platforms. This is evident in many cases, with the recent tumblr blanket ban on female nuditity being once such case.  Another need for this dApp is the case of data harvesting. The dApp only records bare bone facts about a user to the blockchain and does not track users in any form. This is appealing in the post camebridge-analytica social domain.
                 </p>
 
                 </div>
