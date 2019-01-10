@@ -79,6 +79,7 @@ export async function getPosts() {
 
         let address = events[i]['result']['author'];
         let tronaddress = address.substring(2, address.length);
+        tronaddress = "41" + tronaddress;
         tronaddress = tronWeb.address.fromHex(tronaddress)
 
         //format data so it can be used and stored better
@@ -146,6 +147,7 @@ export async function getComments() {
 
         let address = events[i]['result']['commenter'];
         let tronaddress = address.substring(2, address.length);
+        tronaddress = "41" + tronaddress;
         tronaddress = tronWeb.address.fromHex(tronaddress)
 
         var comment = {
