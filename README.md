@@ -1,8 +1,11 @@
 # NoFilter tron dApp (aka !Filter) 
 
 ## MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
+## Shasta Deploymed Address - TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY
 
-NOTE: The first time you load the app you must refresh atleast once for the events populated from the TVM to be visible by the app. The Latest content is grabbed by nofilter during the intitial startup/load of the dApp
+###### Note: as tron grid does not currently store all events for a contract, the hosted site will use shasta. This will be the case until tron infrastructure catches up or an event server can be deployed.
+
+###### NOTE: The first time you load the app you must refresh atleast once for the events populated from the TVM to be visible by the app. The Latest content is grabbed by nofilter during the intitial startup/load of the dApp
 
 ## dApp: [Live Web dApp Link](http://loopexplorer.io:8080/)
 ## Made for the Tron Accelerator Hackathon
