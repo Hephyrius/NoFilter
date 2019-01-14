@@ -15,7 +15,7 @@ class SiteFooter extends Component {
     return (
         <div className="header">
             <footer class="page-footer font-small blue">
-                <div class="footer-copyright text-center py-3">© NoFilter 2019
+                <div class="footer-copyright text-center py-3">© NoFilter [Shasta Test Net] 2019
                     <p><Link to="/">Home</Link> | <Link to="/new-post">Create New Post</Link> | <Link to="/about">About</Link> | <Link to="/search">Search</Link> | <Link to="/account">Account</Link> </p>
                 </div>
             </footer>
