@@ -7,7 +7,7 @@
 
 ###### NOTE: The first time you load the app you must refresh atleast once for the events populated from the TVM to be visible by the app. The Latest content is grabbed by nofilter during the intitial startup/load of the dApp
 
-## dApp: [Live Web dApp Link](http://n0filter.com:8080/)
+## dApp: [Live Web dApp Link](http://n0filter.com/)
 ## Made for the Tron Accelerator Hackathon
 ## Creator - Harnick Khera
 
