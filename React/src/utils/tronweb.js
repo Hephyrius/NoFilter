@@ -8,7 +8,7 @@
 
 import Swal from 'sweetalert2'
 
-import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS} from "./parser"
+import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS, TextType} from "./parser"
 
 const TronWeb = require('tronweb')
 var tronWeb;
@@ -92,7 +92,8 @@ export async function getPosts() {
             author: address,
             tronaddress: tronaddress,
             content: hex2a(events[i]['result']['text']),
-            hms: Time2HMS(events[i]['result']['postTimestamp'])
+            hms: Time2HMS(events[i]['result']['postTimestamp']),
+            type: TextType(hex2a(events[i]['result']['text']))
           }
 
         posts = posts.concat(post);

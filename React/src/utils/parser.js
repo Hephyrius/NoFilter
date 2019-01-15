@@ -60,3 +60,11 @@ export function Time2HMS(timestamp){
     return formattedTime;
 }
 
+//function used to get the type of a post
+export function TextType(content){
+    var type = "Text"
+    if(content.includes("base64") && content.includes("img")){
+        type = "Image";
+    }
+    return type;
+}

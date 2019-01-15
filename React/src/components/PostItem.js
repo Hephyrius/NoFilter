@@ -48,7 +48,7 @@ class PostItem extends Component {
               <div class="col-md-8">
               <p></p>
                 <div className="title-area">
-                    <span className="title"><Link to={"post=" + this.props.post.postid}> {this.props.post.title}</Link></span>  
+                    <span className="title"><Link to={"post=" + this.props.post.postid}> {this.props.post.title + " "}</Link><span class="badge badge-dark">{ this.props.post.type}</span></span>  
                 </div>
 
                 <div className="meta-area">
@@ -61,9 +61,10 @@ class PostItem extends Component {
                   <Divider variant="middle" />
                 </div>
               </div>
+              
           </div>
         </div>
-        
+        <p></p>
       </div>
     );
   }
