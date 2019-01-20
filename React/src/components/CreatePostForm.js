@@ -14,7 +14,7 @@ import ReactQuill, { Quill, Mixin, Toolbar } from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // ES6
 
 
-class Form extends React.Component {
+class CreatePostForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +69,7 @@ class Form extends React.Component {
   render() {
     
     return (
-      <div className="Form">
+      <div className="CreatePostForm">
         <div class="container">
             <div class="row">
               <form onSubmit={this.handleSubmit}>
@@ -116,4 +116,4 @@ class Form extends React.Component {
   }
 }
 
-  export default Form;
+  export default CreatePostForm;
