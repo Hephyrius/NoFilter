@@ -24,6 +24,7 @@ const tronWebDefault = new TronWeb(
 //address of the contract
 // const contractAddress = "TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP"; MAINNET
 const contractAddress = "TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY" //Shasta
+//const contractAddress = "TH4TJ961DbZ6fuJNf3gHwNgfwNcRxxYE6a"; // Quickstart
 
 
 function dynamicTronlink(){
