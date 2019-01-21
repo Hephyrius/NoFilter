@@ -7,7 +7,7 @@
 //Repository can be found at (Github.com/Hephyrius/Nofilter)
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
 
 import Posts from "./components/Posts";
 import PostPage from "./components/PostPage";
