@@ -77,6 +77,7 @@ export async function getPosts() {
     const events = await tronWeb.getEventResult(contractAddress, 0, "PostContent", 0,  200, 1);
 
     var posts = []
+    var TagList = []
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['author'];
@@ -96,11 +97,13 @@ export async function getPosts() {
             hms: Time2HMS(events[i]['result']['postTimestamp']),
             type: TextType(hex2a(events[i]['result']['text']))
           }
+          TagList = TagList.concat(post['tags']);
 
         posts = posts.concat(post);
     }
 
     localStorage.setItem("Posts", JSON.stringify(posts));
+    localStorage.setItem("TagList", JSON.stringify(TagList));
 
     return posts;
 }
