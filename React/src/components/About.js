@@ -22,8 +22,10 @@ class About extends React.Component {
                 <div>
 
                 <p align="justify">
-                <h4> NoFilter tron dApp (aka !Filter) </h4> 
+                <h4> NoFilter tron dApp (aka !Filter)</h4> 
                 <p><strong> MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP</strong> </p>
+                <p><strong> Shasta Testnet Deployed Address - TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY</strong> </p>
+                <p><strong> NoFilter has been returned to shasta until trongrid stores all past events OR an event server can be successfully set up!</strong> </p>
                 <p><strong> Made for the Tron Accelerator Hackathon</strong> </p>
                 <p><strong> Creator - Harnick Khera (Hephyrius)</strong> </p>
                 </p>

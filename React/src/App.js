@@ -7,11 +7,11 @@
 //Repository can be found at (Github.com/Hephyrius/Nofilter)
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
 
 import Posts from "./components/Posts";
 import PostPage from "./components/PostPage";
-import Form from "./components/Form";
+import CreatePostForm from "./components/CreatePostForm";
 import About from "./components/About";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
@@ -71,7 +71,7 @@ class App extends Component {
 }
 
 const Home = () => <Posts filterword={""}/>;
-const newpost = () => <Form /> ;
+const newpost = () => <CreatePostForm /> ;
 const PostP = ({ match }) => ( <PostPage postid={match.params.id} />);
 const TagP = ({ match }) => ( <Posts filterword={match.params.term} content={false} tag={true} title={false} />);
 const AboutP = ({ match }) => ( <About />);

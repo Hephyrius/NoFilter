@@ -8,21 +8,23 @@
 
 import Swal from 'sweetalert2'
 
-import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS} from "./parser"
+import {a2hex, hex2a, Time2a, aTo32bytehex, Time2HMS, TextType} from "./parser"
 
 const TronWeb = require('tronweb')
 var tronWeb;
 
 //connecting tronweb to the local docker node
 const tronWebDefault = new TronWeb(
-    "https://api.trongrid.io",
-    "https://api.trongrid.io",
-    "https://api.trongrid.io",
+    "https://api.shasta.trongrid.io",
+    "https://api.shasta.trongrid.io",
+    "https://api.shasta.trongrid.io",
     'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0', //default testnet pkey
 )
 
 //address of the contract
-const contractAddress = "TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP";
+// const contractAddress = "TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP"; MAINNET
+const contractAddress = "TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY" //Shasta
+//const contractAddress = "TH4TJ961DbZ6fuJNf3gHwNgfwNcRxxYE6a"; // Quickstart
 
 
 function dynamicTronlink(){
@@ -75,10 +77,12 @@ export async function getPosts() {
     const events = await tronWeb.getEventResult(contractAddress, 0, "PostContent", 0,  200, 1);
 
     var posts = []
+    var TagList = []
     for(var i=0; i<events.length; i++){
 
         let address = events[i]['result']['author'];
         let tronaddress = address.substring(2, address.length);
+        tronaddress = "41" + tronaddress;
         tronaddress = tronWeb.address.fromHex(tronaddress)
 
         //format data so it can be used and stored better
@@ -90,13 +94,16 @@ export async function getPosts() {
             author: address,
             tronaddress: tronaddress,
             content: hex2a(events[i]['result']['text']),
-            hms: Time2HMS(events[i]['result']['postTimestamp'])
+            hms: Time2HMS(events[i]['result']['postTimestamp']),
+            type: TextType(hex2a(events[i]['result']['text']))
           }
+          TagList = TagList.concat(post['tags']);
 
         posts = posts.concat(post);
     }
 
     localStorage.setItem("Posts", JSON.stringify(posts));
+    localStorage.setItem("TagList", JSON.stringify(TagList));
 
     return posts;
 }
@@ -146,6 +153,7 @@ export async function getComments() {
 
         let address = events[i]['result']['commenter'];
         let tronaddress = address.substring(2, address.length);
+        tronaddress = "41" + tronaddress;
         tronaddress = tronWeb.address.fromHex(tronaddress)
 
         var comment = {
