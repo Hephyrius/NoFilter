@@ -48,6 +48,7 @@ class Donate extends React.Component {
 
                               <p></p>
                 <strong>Post Has Earned: {this.props.donation['TrxDonation']}Trx </strong> 
+                
               <p></p>
             </form>
             </div>

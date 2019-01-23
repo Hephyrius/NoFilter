@@ -23,8 +23,8 @@ const tronWebDefault = new TronWeb(
 
 //address of the contract
 // const contractAddress = "TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP"; MAINNET
-const contractAddress = "TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY" //Shasta
-//const contractAddress = "TH4TJ961DbZ6fuJNf3gHwNgfwNcRxxYE6a"; // Quickstart
+//const contractAddress = "TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY" //Shasta
+const contractAddress = "TM2sSVEvbSGYjR5d6oS8cv529vqWZLF2h3"; // Quickstart
 
 
 function dynamicTronlink(){
@@ -366,77 +366,7 @@ export async function VoteOnComment(postid, commentid, votetype) {
 
 }
 
-// DEPOSIT, DONATION and WITHDRAW SYSTEM
-export async function DepositTrx(trxAmount) {
-
-    //load the contract 
-    const contract = await window.tronWeb.contract().at(contractAddress);
-
-    //convert tron amount into a sun value as sun is used as the call value
-    let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
-
-    //notify the user that the deposit has been attempted
-    Swal({title:'transaction to deposit ' + sunAmount.toString() + "Sun (" + trxAmount.toString() + " trx) has been sent",
-    type: 'info'
-    });
-
-    //submit the data to the blockchain
-    contract.deposit().send({
-        shouldPollResponse:true,
-        callValue: sunAmount
-
-    }).then(res => Swal({
-        title:'Deposit Made Successfully',
-        type: 'success'
-
-    })).catch(err => Swal(
-        {
-            title:'Deposit Failed',
-            type: 'error'
-        }
-    ));
-}
-
-export async function withdrawTrx(takeAll, trxAmount) {
-
-    //load the contract 
-    const contract = await window.tronWeb.contract().at(contractAddress);
-
-    //convert the postid into a useable form
-    let sunAmount = Number(trxAmount * 1000000) // 1 trx is 1 million sun, call value is in sun.
-    let sunHexValue = "0x" + Number(sunAmount).toString(16);
-
-    //notify the user that the deposit has been attempted
-    if(takeAll == true){
-
-        Swal({title:'transaction to withdraw Current trx balance has been sent',
-        type: 'info'
-        });
-
-    }else {
-
-        Swal({title:'transaction to withdraw ' + sunAmount.toString() + "Sun (" + trxAmount.toString() + " trx) has been sent",
-        type: 'info'
-        });
-
-    }
-
-    //submit the data to the blockchain
-    contract.withdraw(tronWeb.toHex(takeAll), sunHexValue).send({
-        shouldPollResponse:true,
-        callValue: 0
-
-    }).then(res => Swal({
-        title:'Withdrawal Successful',
-        type: 'success'
-
-    })).catch(err => Swal(
-        {
-            title:'Withdrawal Failed',
-            type: 'error'
-        }
-    ));
-}
+//DONATION SYSTEM
 
 export async function DonateTrx(postid, trxAmount) {
 
@@ -449,15 +379,15 @@ export async function DonateTrx(postid, trxAmount) {
     let id = "0x" + Number(postid).toString(16);
 
 
-    Swal({title:'Transaction to Donate ' + trxAmount.toString() + "trx from your contract balance sent",
+    Swal({title:'Transaction to Donate ' + trxAmount.toString() + "trx sent",
     type: 'info'
     });
 
 
     //submit the data to the blockchain
-    contract.makeDonation(id, sunHexValue).send({
+    contract.makeDonation(id).send({
         shouldPollResponse:true,
-        callValue: 0
+        callValue: sunAmount
 
     }).then(res => Swal({
         title:'Donation Successful',
@@ -551,18 +481,17 @@ export async function getUserData() {
     let senderAddress = await contract.getSenderAddress().call();
     let hexAdd = senderAddress;
     let add = tronWeb.address.fromHex(hexAdd);
-
-    let ContractBalance = await contract.getBalance(hexAdd).call();
-    let balance = tronWeb.toBigNumber(ContractBalance['_hex']).toNumber();
     
     let ContractUsername = await contract.getUsername(hexAdd).call();
     let username = hex2a(ContractUsername);
 
+    let balance = await tronWeb.trx.getBalance(add);
+
     user = {
         TronAddress : add,
         HexAddress : "0x" + hexAdd,
-        SunBalance : balance,
-        UserName : username
+        UserName : username,
+        SunBalance : balance
     }
 
     localStorage.setItem("User", JSON.stringify(user));

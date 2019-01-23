@@ -25,7 +25,6 @@ contract NoFilter {
     mapping (address => mapping(uint => mapping(uint => uint))) commentVoters; //keeps track of a users voting history, helps to prevent vote spamming from a single account
     
     //Donation System
-    mapping (address => uint) balances;
     mapping (uint => uint) postEarnings;
     //mapping (uint => mapping(uint => uint)) commentEarnings;
     
@@ -204,68 +203,21 @@ contract NoFilter {
     function getPostCounter() public view returns (uint) {
         return postNumber;
     }
-    
-    //deposit and Withdrawal System
-    
-    //Invoked when a donation is made
-    event Deposited (
-        address indexed depositer,
-        uint value
-    );
-    
-    //deposit trx into the smart contract
-    function deposit() public payable {
-        require(msg.value > 0, "no attached value");
-        balances[msg.sender] += msg.value;
-        emit Deposited(msg.sender, msg.value);
-    }
-    
-    //Invoked when a Withdrawal is made
-    event Withdrawal (
-        address indexed taker,
-        uint value
-    );
-    
-    
-    //Withdraw funds
-    function withdraw(bool withdrawall, uint trxAmmount) public {
-        
-        //either withdraw all the funds for a user 
-        if(withdrawall == true){
-            uint balance = balances[msg.sender];
-            require(balance > 0, "Sender does not have funds");
-            balances[msg.sender] = 0;
-            msg.sender.transfer(balance);
-            emit Withdrawal(msg.sender, balance);
-        }
-        else{ //or take out a specific amount of tron
-            require(trxAmmount > 0, "Incorrect withdraw value");
-            require(balances[msg.sender] >= trxAmmount, "attempting to withdraw too much");
-            balances[msg.sender] -= trxAmmount;
-            msg.sender.transfer(trxAmmount);
-            emit Withdrawal(msg.sender, trxAmmount);
-        }
-    }
-    
+
     //Donation System 
     
     //make a donation to a post
-    function makeDonation(uint postId, uint donationValue) public {
-        
+    function makeDonation(uint postId) public payable {
+        require(msg.value > 0, "no attached value");
         require(postId >= 0, "votes is not for a valid post");
         require(postId < postNumber, "votes is for a non existent post");
         
-        require(donationValue > 0, "no attached value");
-        require(donationValue <= balances[msg.sender]);
-        
-        
-        balances[msg.sender] -= donationValue;
+        address owner = postOwners[postId];
+        owner.transfer(msg.value);
         
         //post owner
-        address owner = postOwners[postId];
-        balances[owner] += donationValue;
-        postEarnings[postId] += donationValue;
-        emit DonationMade(msg.sender, donationValue, now, postId);
+        postEarnings[postId] += msg.value;
+        emit DonationMade(msg.sender, msg.value, now, postId);
     }
     
     //Invoked when a donation is made
@@ -279,11 +231,6 @@ contract NoFilter {
     //get post donations
     function getPostDonations(uint postId) public view returns (uint) {
         return postEarnings[postId];
-    }
-    
-    //get user balance
-    function getBalance(address user) public view returns (uint) {
-        return balances[user];
     }
     
     // Username System
