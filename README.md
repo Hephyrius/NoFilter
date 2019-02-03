@@ -3,7 +3,7 @@
 ## MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
 ## Shasta Deploymed Address - TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY
 
-###### Note: as tron grid does not currently store all events for a contract, the hosted site will use shasta. This will be the case until tron infrastructure catches up or an event server can be deployed.
+###### Note: Work on v2 is on another (Currently Private) Repository
 
 ###### NOTE: The first time you load the app you must refresh atleast once for the events populated from the TVM to be visible by the app. The Latest content is grabbed by nofilter during the intitial startup/load of the dApp
 
