@@ -11,7 +11,7 @@
 ## Made for the Tron Accelerator Hackathon
 ## Creator - Harnick Khera
 
-### [VIDEO of dApp](https://youtu.be/q_VSDe_ThM8)
+##### [VIDEO of Accelerator submission of dApp](https://youtu.be/q_VSDe_ThM8)
 ##### (note a backend error when posting a magnet link occured and is present on the corrosponding dApp post, this is unresolved)
 
 ## What is NoFilter
