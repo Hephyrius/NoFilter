@@ -3,7 +3,7 @@
 ## MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
 ## Shasta Deploymed Address - TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY
 
-###### Note: Work on v2 is on another (Currently Private) Repository
+###### Note: Work on v2 is on another (Currently Private) Repository. A whitepaper and other information will eventually be released!
 
 ###### NOTE: The first time you load the app you must refresh atleast once for the events populated from the TVM to be visible by the app. The Latest content is grabbed by nofilter during the intitial startup/load of the dApp
 
