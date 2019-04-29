@@ -1,5 +1,5 @@
 # NoFilter tron dApp (aka !Filter) 
-
+# Whitepaper: Coming Soon!
 ## MainNet Deployed Address - TGX6LGnhFgSUyG4oR7iU4bVTWUnMY9B7mP
 ## Shasta Deploymed Address - TEQebZr8wuhyYMLXCdWi6LQA7z2gN1fEfY
 
